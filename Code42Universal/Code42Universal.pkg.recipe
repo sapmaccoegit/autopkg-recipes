@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Description</key>
+      <string>Downloads the current release version of Code42 for Intel and Apple Silicon and builds an installer package.</string>
+      <key>Identifier</key>
+      <string>corp.sap.maccoe.pkg.Code42Universal</string>
+      <key>Input</key>
+     <dict>
+         <key>NAME</key>
+         <string>Code42</string>
+         <key>PACKAGER</key>
+         <string>SAPCorp</string>
+         <key>VENDOR</key>
+         <string>Code42</string>
+      </dict>
+      <key>ParentRecipe</key>
+      <string>corp.sap.maccoe.download.Code42Universal</string>
+      <key>MinimumVersion</key>
+      <string>1.0.0</string>
+      <key>Process</key>
+      <array>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>flat_pkg_path</key>
+               <string>%RECIPE_CACHE_DIR%/downloads/Code42-AppleSilicon.dmg/Install Code42.pkg</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%/unpack</string>
+            </dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pkg_payload_path</key>
+               <string>%RECIPE_CACHE_DIR%/unpack/code42.pkg/Payload</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%/payload</string>
+            </dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+         </dict>
+         <dict>
+            <key>Comment</key>
+            <string>Get version from the pkg</string>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+               <key>input_plist_path</key>
+               <string>%RECIPE_CACHE_DIR%/payload/Code42.app/Contents/Info.plist</string>
+               <key>plist_version_key</key>
+               <string>CFBundleShortVersionString</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pkgroot</key>
+               <string>%RECIPE_CACHE_DIR%/Universal/Scripts</string>
+               <key>pkgdirs</key>
+               <dict />
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pkgroot</key>
+               <string>%RECIPE_CACHE_DIR%/Universal/pkgroot</string>
+               <key>pkgdirs</key>
+               <dict />
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+            <key>Arguments</key>
+            <dict>
+               <key>source_pkg</key>
+               <string>%RECIPE_CACHE_DIR%/downloads/Code42-AppleSilicon.dmg/Install Code42.pkg</string>
+               <key>pkg_path</key>
+               <string>%RECIPE_CACHE_DIR%/Universal/Scripts/%PACKAGER%_%VENDOR%_ARM64_%version%.pkg</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+            <key>Arguments</key>
+            <dict>
+               <key>source_pkg</key>
+               <string>%RECIPE_CACHE_DIR%/downloads/Code42-Intel.dmg/Install Code42.pkg</string>
+               <key>pkg_path</key>
+               <string>%RECIPE_CACHE_DIR%/Universal/Scripts/%PACKAGER%_%VENDOR%_x8664_%version%.pkg</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>file_path</key>
+               <string>%RECIPE_CACHE_DIR%/Universal/Scripts/preinstall</string>
+               <key>file_mode</key>
+               <string>0755</string>
+               <key>file_content</key>
+               <string>#!/bin/bash
+
+# Determine working directory
+
+installDir=$(dirname $0)
+
+# Identify installer package names
+
+Intel_package="$installDir/%PACKAGER%_%VENDOR%_x8664_%version%.pkg"
+Apple_Silicon_package="$installDir/%PACKAGER%_%VENDOR%_ARM64_%version%.pkg"
+
+# Determine if this Mac has an Intel or Apple Silicon processor
+
+processor=$(/usr/sbin/sysctl -n machdep.cpu.brand_string | grep -o "Intel")
+
+if [[ -n "$processor" ]]; then
+   PKG="$Intel_package"
+else
+   PKG="$Apple_Silicon_package"
+fi
+
+APP_SUPPORT="$3/Library/Application Support/CrashPlan"
+ERROR=0
+
+
+function log {
+
+	ERROR_MSG="$1"
+	echo "$ERROR_MSG"
+	/usr/bin/logger "SAPCorp: $ERROR_MSG"
+}
+
+if [[ -f "$PKG" ]]; then
+
+	# get the main user of the machine
+	USER_NAME=$(/usr/bin/last -20 -t console | /usr/bin/grep -Ev "^root|^wtmp" | /usr/bin/awk '{print $1}' | /usr/bin/sort | /usr/bin/uniq -c | /usr/bin/sort -r | /usr/bin/head -1 | /usr/bin/awk '{print $2}')
+	
+	# get the current user, if we didn't get the main user
+	if [[ -z "$USER_NAME" ]]; then
+		log "Failed to get main user of the machine. Using current console user"
+		USER_NAME=$(/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }')
+	fi
+	
+	if [[ -n "$USER_NAME" ]]; then
+	
+		if [[ "$USER_NAME" != "root" ]]; then
+	
+			# get path to user's home directory
+			USER_HOME=$(/usr/bin/dscl . -read "/Users/$USER_NAME" NFSHomeDirectory | /usr/bin/sed 's/^[^\/]*//g')		
+	
+			log "Current user is $USER_NAME with home folder path $USER_HOME"
+	
+			export CP_USER_HOME="$USER_HOME"
+			export CP_USER_NAME="$USER_NAME"
+			export CP_SILENT=true
+			export startDesktop=false
+			export JET_MESSAGES_DISABLE_GUI_ON_OSX=true
+		
+			if [[ -d "$APP_SUPPORT" ]]; then
+				/bin/chmod 755 "$APP_SUPPORT"
+			fi
+	
+			INSTALL_OUT=$(/usr/sbin/installer -pkg "$PKG" -target /)
+	
+			if [[ $? -eq 0 ]]; then
+				log "Installation successful"
+			else
+				log "ERROR! Installation failed: $INSTALL_OUT"
+				ERROR=1
+			fi
+			
+		else
+			log "ERROR! No user is currently logged in. Unable to continue"
+			ERROR=1
+		fi
+	
+	else
+		log "ERROR! Unable to determine user id"
+		ERROR=1
+	fi
+	
+else
+	log "ERROR! Missing installation package"
+	ERROR=1
+fi
+
+exit $ERROR</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pkg_request</key>
+               <dict>
+                  <key>pkgname</key>
+                  <string>%PACKAGER%_%VENDOR%_Universal_%version%</string>
+                  <key>version</key>
+                  <string>%version%</string>
+                  <key>id</key>
+                  <string>corp.sap.code42.pkg</string>
+                  <key>scripts</key>
+                  <string>%RECIPE_CACHE_DIR%/Universal/Scripts</string>
+                  <key>options</key>
+                  <string>purge_ds_store</string>
+               </dict>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+               <key>path_list</key>
+               <array>
+                  <string>%RECIPE_CACHE_DIR%/payload</string>
+                  <string>%RECIPE_CACHE_DIR%/Universal</string>
+                  <string>%RECIPE_CACHE_DIR%/unpack</string>
+               </array>
+            </dict>
+         </dict>
+      </array>
+   </dict>
+</plist>

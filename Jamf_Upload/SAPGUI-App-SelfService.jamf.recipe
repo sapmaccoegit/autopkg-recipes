@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Description</key>
+      <string>Uses parent pkg recipe to download SAP GUI and import it into the Jamf Pro server.</string>
+      <key>Identifier</key>
+      <string>corp.sap.maccoe.jamf.SAPGUI-App-SelfService</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>SAP GUI</string>
+         <key>PROD_NAME</key>
+         <string>SAPGUI</string>
+         <key>POLICY_TRIGGER</key>
+         <string>autoupdate-%PROD_NAME%</string>
+         <key>GROUP_TEMPLATE1</key>
+         <string>SAPGUISmartGroupTemplate.xml</string>
+         <key>GROUP_NAME1</key>
+         <string>macOS-i858772-202107&#58; %NAME% installed and not latest version</string>
+         <key>GROUP_TEMPLATE2</key>
+         <string>SAPGUISmartGroupTemplate2.xml</string>
+         <key>GROUP_NAME2</key>
+         <string>macOS-i858772-202107&#58; %NAME% installed and latest version</string>
+         <key>GROUP_NAME3</key>
+         <string>macOS-d065182-201805&#58; Non-compliant Clients</string>
+         <key>SELF_SERVICE_DESCRIPTION</key>
+         <string>SAP GUI is SAP’s universal client for accessing SAP functionality in SAP applications such as - SAP ERP, SAP Business Suite (SAP CRM, SAP SCM and SAP PLM), SAP Business Intelligence and so on. SAP GUI functions like a browser. It gets information from the SAP server like what, where, when and how, to display contents in its window.&#xD;
+&#xD;
+SAP GUI for the Java environment is a unified SAP frontend for multiple platforms. It is based on a platform-independent architecture and requires a Java runtime which is bundled inside this package already.&#xD;
+&#xD;
+In order to use SAPGUI for Java with Single Sign-On (SSO) you will also need to install the SAP Secure Login Client from Self-Service.&#xD;
+&#xD;
+Learn more about [SAP GUI for Java](https&#58;//help.sap.com/viewer/e665f2b67dbd4328ab6bd9e029b84581/770.00/en-US).</string>
+         <key>SELF_SERVICE_ICON</key>
+         <string>SAPGUI.png</string>
+         <key>INSTALL_BUTTON_TEXT</key>
+         <string>Install</string>
+         <key>REINSTALL_BUTTON_TEXT</key>
+         <string>Install</string>
+         <key>SAPGUI_POLICY_NAME</key>
+         <string>macOS-i858772-202204&#58; Latest SAP GUI for Java</string>
+         <key>SAPGUI_POLICY_CATEGORY</key>
+         <string>For you</string>
+         <key>SAPGUI_POLICY_CATEGORY_PRIORITY</key>
+         <string>1</string>
+         <key>SAPGUI_POLICY_TEMPLATE</key>
+         <string>SAPGUI-Policy-install-latest.xml</string>
+         <key>SAPGUI_POLICY_RUN_COMMAND</key>
+         <string>/usr/local/jamf/bin/jamf policy -event %POLICY_TRIGGER%</string>
+         <key>replace_group</key>
+         <string>True</string>
+         <key>replace_policy</key>
+         <string>True</string>
+         <key>API_APP_IDENTIFIER</key>
+         <string>Application Bundle ID</string>
+         <key>STOPPROCESSINGIF_PREDICATE1</key>
+         <string>download_changed == FALSE</string>
+         <key>STOPPROCESSINGIF_PREDICATE2</key>
+         <string>pkg_uploaded == FALSE</string>
+      </dict>
+      <key>MinimumVersion</key>
+      <string>2.0.0</string>
+      <key>ParentRecipe</key>
+      <string>corp.sap.maccoe.jamf.SAPGUI-App-AutoUpdate</string>
+      <key>Process</key>
+      <array>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>%STOPPROCESSINGIF_PREDICATE1%</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>%STOPPROCESSINGIF_PREDICATE2%</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+               <key>archive_path</key>
+               <string>%pathname%</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%</string>
+               <key>purge_destination</key>
+               <true />
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PlistReader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>info_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/com.sapgui.identifier.plist</string>
+               <key>plist_keys</key>
+               <dict>
+                  <key>AlphanumericVersionString</key>
+                  <string>alphanumeric_version</string>
+               </dict>
+            </dict>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>category_name</key>
+               <string>%POLICY_CATEGORY%</string>
+            </dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>category_name</key>
+               <string>%SAPGUI_POLICY_CATEGORY%</string>
+               <key>category_priority</key>
+               <string>%SAPGUI_POLICY_CATEGORY_PRIORITY%</string>
+            </dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+            <key>Arguments</key>
+            <dict>
+               <key>SAPGUI_ALPHANUMERIC_VERSION</key>
+               <string>%alphanumeric_version%</string>
+               <key>SELF_SERVICE_DISPLAY_NAME</key>
+               <string>SAP GUI for Java %SAPGUI_ALPHANUMERIC_VERSION%</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>computergroup_name</key>
+               <string>%GROUP_NAME1%</string>
+               <key>computergroup_template</key>
+               <string>%GROUP_TEMPLATE1%</string>
+               <key>replace_group</key>
+               <string>True</string>
+            </dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>computergroup_name</key>
+               <string>%GROUP_NAME2%</string>
+               <key>computergroup_template</key>
+               <string>%GROUP_TEMPLATE2%</string>
+               <key>replace_group</key>
+               <string>True</string>
+            </dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>policy_name</key>
+               <string>%SAPGUI_POLICY_NAME%</string>
+               <key>policy_template</key>
+               <string>%SAPGUI_POLICY_TEMPLATE%</string>
+               <key>replace_policy</key>
+               <string>True</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+               <key>path_list</key>
+               <array>
+                  <string>%RECIPE_CACHE_DIR%/%VENDOR%</string>
+               </array>
+            </dict>
+         </dict>
+      </array>
+   </dict>
+</plist>

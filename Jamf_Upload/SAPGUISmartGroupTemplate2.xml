@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<computer_group>
+   <name>%GROUP_NAME2%</name>
+   <is_smart>true</is_smart>
+   <criteria>
+      <criterion>
+         <name>%API_APP_IDENTIFIER%</name>
+         <priority>0</priority>
+         <and_or>and</and_or>
+         <search_type>is</search_type>
+         <value>%bundle_identifier%</value>
+      </criterion>
+      <criterion>
+         <name>Application Version</name>
+         <priority>1</priority>
+         <and_or>and</and_or>
+         <search_type>is</search_type>
+         <value>%version%</value>
+      </criterion>
+   </criteria>
+</computer_group>

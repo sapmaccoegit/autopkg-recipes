@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Description</key>
+      <string>Downloads the latest version of VMware Fusion 12 and creates a package</string>
+      <key>Identifier</key>
+      <string>corp.sap.maccoe.pkg.VMwareFusion12</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>VMware Fusion</string>
+         <key>PACKAGER</key>
+         <string>SAPCorp</string>
+         <key>VENDOR</key>
+         <string>VMware</string>
+         <key>SOFTWARETITLE</key>
+         <string>Fusion</string>
+      </dict>
+      <key>MinimumVersion</key>
+      <string>1.0.0</string>
+      <key>ParentRecipe</key>
+      <string>com.justinrummel.download.VMwareFusion</string>
+      <key>Process</key>
+      <array>
+		<dict>
+			<key>Processor</key>
+			<string>Unarchiver</string>
+			<key>Arguments</key>
+			<dict>
+				<key>archive_path</key>
+				<string>%pathname%</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/tar</string>
+				<key>purge_destination</key>
+				<true/>
+				<key>archive_format</key>
+				<string>tar</string>
+			</dict>
+		</dict>
+ 		<dict>
+			<key>Processor</key>
+			<string>Unarchiver</string>
+			<key>Arguments</key>
+			<dict>
+				<key>archive_path</key>
+				<string>%RECIPE_CACHE_DIR%/tar/com.vmware.fusion.zip</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/source</string>
+				<key>purge_destination</key>
+				<true/>
+				<key>archive_format</key>
+				<string>zip</string>
+			</dict>
+		</dict>
+         <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%RECIPE_CACHE_DIR%/source/payload/VMware Fusion.app</string>
+                <key>requirement</key>
+                <string>identifier "com.vmware.fusion" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EG7KH642X6</string>
+            </dict>
+         </dict>
+ 		<dict>
+			<key>Comment</key>
+			<string>Extract a version string from Info.plist to use for the package.</string>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/source/payload/VMware Fusion.app/Contents/Info.plist</string>
+				<key>plist_version_key</key>
+				<string>CFBundleShortVersionString</string>
+			</dict>
+		</dict>
+         <dict>
+             <key>Processor</key>
+             <string>PkgRootCreator</string>
+             <key>Arguments</key>
+             <dict>
+                 <key>pkgroot</key>
+                 <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                 <key>pkgdirs</key>
+                 <dict>
+                     <key>Applications</key>
+                     <string>0775</string>
+                 </dict>
+             </dict>
+         </dict>
+         <dict>
+             <key>Processor</key>
+             <string>corp.sap.autopkg.SharedProcessors/DittoCopier</string>
+             <key>Arguments</key>
+             <dict>
+                 <key>source_path</key>
+                 <string>%RECIPE_CACHE_DIR%/source/payload/VMware Fusion.app</string>
+                 <key>destination_path</key>
+                 <string>%pkgroot%/Applications/VMware Fusion.app</string>
+             </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pkgroot</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts</string>
+               <key>pkgdirs</key>
+               <dict />
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>FileCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>file_content</key>
+               <string>#!/bin/zsh
+
+# Clears quarantine bits from certain files
+
+xattr -rd com.apple.quarantine /Applications/VMware\ Fusion.app/Contents/Library/LaunchServices/*Helper
+
+#
+# Pinched with &lt;3 from: https://github.com/autopkg/justinrummel-recipes/blob/42bc13881fe373f771cefec20a53d7844172019f/VMware%20Fusion/VMwareFusion.pkg.munki.recipe
+#
+
+if [ -e /Applications/VMware\ Fusion.app/Contents/Library/Initialize\ VMware\ Fusion.tool ]
+then
+        /Applications/VMware\ Fusion.app/Contents/Library/Initialize\ VMware\ Fusion.tool set
+fi</string>
+               <key>file_mode</key>
+               <string>0755</string>
+               <key>file_path</key>
+               <string>%RECIPE_CACHE_DIR%/Scripts/postinstall</string>
+            </dict>
+         </dict>
+         <dict>
+             <key>Processor</key>
+             <string>PkgInfoCreator</string>
+             <key>Arguments</key>
+             <dict>
+                 <key>version</key>
+                 <string>%version%</string>
+                 <key>template_path</key>
+                 <string>PackageInfoTemplate</string>
+                 <key>infofile</key>
+                 <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
+                 <key>pkgtype</key>
+                 <string>flat</string>
+             </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgCreator</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pkgname</key>
+               <string>%PACKAGER%_%VENDOR%_%SOFTWARETITLE%_%version%</string>
+               <key>pkg_request</key>
+               <dict>
+                  <key>chown</key>
+                  <array>
+                     <dict>
+                        <key>path</key>
+                        <string>Applications</string>
+                        <key>user</key>
+                        <string>root</string>
+                        <key>group</key>
+                        <string>admin</string>
+                     </dict>
+                  </array>
+                  <key>id</key>
+                  <string>com.vmware.fusion</string>
+                  <key>options</key>
+                  <string>purge_ds_store</string>
+                  <key>pkgdir</key>
+                  <string>%RECIPE_CACHE_DIR%</string>
+                  <key>pkgroot</key>
+                  <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                  <key>scripts</key>
+                  <string>Scripts</string>
+               </dict>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+               <key>path_list</key>
+               <array>
+                  <string>%RECIPE_CACHE_DIR%/%NAME%/</string>
+                  <string>%RECIPE_CACHE_DIR%/Scripts/</string>
+                  <string>%RECIPE_CACHE_DIR%/source/</string>
+                  <string>%RECIPE_CACHE_DIR%/tar/</string>
+               </array>
+            </dict>
+         </dict>
+      </array>
+   </dict>
+</plist>

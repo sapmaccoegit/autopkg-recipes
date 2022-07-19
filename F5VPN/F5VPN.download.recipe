@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Description</key>
+      <string>Downloads the current release version of the F5 Networks BIG-IP Edge Client for Mac.</string>
+      <key>Identifier</key>
+      <string>corp.sap.maccoe.download.f5vpn</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>F5 Networks BIG-IP Edge Client</string>
+         <key>PACKAGER</key>
+         <string>SAPCorp</string>
+         <key>VENDOR</key>
+         <string>F5Networks</string>
+         <key>SOFTWARETITLE1</key>
+         <string>BIG-IP</string>
+         <key>SOFTWARETITLE2</key>
+         <string>Edge</string>
+         <key>SOFTWARETITLE3</key>
+         <string>Client</string>
+         <key>DOWNLOAD_URL</key>
+         <string>Put_F5VPN_download_URL_into_AutoPkg_recipe_override</string>
+      </dict>
+      <key>MinimumVersion</key>
+      <string>1.0.0</string>
+      <key>Process</key>
+      <array>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>DOWNLOAD_URL == "Put_F5VPN_download_URL_into_AutoPkg_recipe_override"</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>url</key>
+               <string>%DOWNLOAD_URL%</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+               <key>archive_path</key>
+               <string>%pathname%</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%</string>
+               <key>purge_destination</key>
+               <true />
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>FileFinder</string>
+            <key>Arguments</key>
+            <dict>
+               <key>pattern</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/*.pkg</string>
+            </dict>
+         </dict>
+         <dict>
+             <key>Processor</key>
+             <string>CodeSignatureVerifier</string>
+             <key>Arguments</key>
+             <dict>
+                 <key>expected_authority_names</key>
+                 <array>
+                     <string>Developer ID Installer: F5 Networks, Inc. (57P38MF5GS)</string>
+                     <string>Developer ID Certification Authority</string>
+                     <string>Apple Root CA</string>
+                 </array>
+                 <key>input_path</key>
+                 <string>%found_filename%</string>
+             </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+         </dict>
+      </array>
+   </dict>
+</plist>

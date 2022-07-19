@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest Universal version of VLC from the website and creates an installer package.</string>
+    <key>Identifier</key>
+    <string>corp.sap.maccoe.pkg.VLCUniversal</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>VLC</string>
+         <key>PACKAGER</key>
+         <string>SAPCorp</string>
+         <key>VENDOR</key>
+         <string>VideoLAN</string>
+         <key>SOFTWARETITLE</key>
+         <string>VLC</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>ParentRecipe</key>
+    <string>corp.sap.maccoe.download.VLCUniversal</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>bundleid</key>
+                <string>%pkg_id%</string>
+                <key>version</key>
+                <string>%version%</string>
+                <key>pkg_path</key>
+                <string>%RECIPE_CACHE_DIR%/%PACKAGER%_%VENDOR%_%SOFTWARETITLE%_%version%.pkg</string>
+            </dict>
+            <key>Processor</key>
+            <string>AppPkgCreator</string>
+        </dict>
+    </array>
+</dict>
+</plist>
