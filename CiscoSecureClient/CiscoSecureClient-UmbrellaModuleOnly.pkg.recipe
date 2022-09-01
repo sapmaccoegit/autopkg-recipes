@@ -32,19 +32,19 @@ If you need more packages installing, you should make a copy of this recipe and 
 		<key>UMBRELLA_USER_ID</key>
 		<string>Put_text_into_AutoPkg_recipe_override</string>
         <key>CHOICE_VPN</key>
-        <string>1</string>
+        <string>0</string>
         <key>CHOICE_WEBSECURITY</key>
-        <string>1</string>
+        <string>0</string>
         <key>CHOICE_FIREAMP</key>
-        <string>1</string>
+        <string>0</string>
         <key>CHOICE_DART</key>
-        <string>1</string>
+        <string>0</string>
         <key>CHOICE_POSTURE</key>
-        <string>1</string>
+        <string>0</string>
         <key>CHOICE_ISEPOSTURE</key>
-        <string>1</string>
+        <string>0</string>
         <key>CHOICE_NVM</key>
-        <string>1</string>
+        <string>0</string>
         <key>CHOICE_UMBRELLA</key>
         <string>1</string>
 		<key>DISABLE_VPN</key>
