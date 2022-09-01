@@ -31,31 +31,31 @@ If you need more packages installing, you should make a copy of this recipe and 
 		<string>Put_text_into_AutoPkg_recipe_override</string>
 		<key>UMBRELLA_USER_ID</key>
 		<string>Put_text_into_AutoPkg_recipe_override</string>
-        <key>CHOICE_VPN</key>
-        <string>0</string>
-        <key>CHOICE_WEBSECURITY</key>
-        <string>0</string>
-        <key>CHOICE_FIREAMP</key>
-        <string>0</string>
-        <key>CHOICE_DART</key>
-        <string>0</string>
-        <key>CHOICE_POSTURE</key>
-        <string>0</string>
-        <key>CHOICE_ISEPOSTURE</key>
-        <string>0</string>
-        <key>CHOICE_NVM</key>
-        <string>0</string>
-        <key>CHOICE_UMBRELLA</key>
-        <string>1</string>
+		<key>CHOICE_VPN</key>
+		<string>0</string>
+		<key>CHOICE_WEBSECURITY</key>
+		<string>0</string>
+		<key>CHOICE_FIREAMP</key>
+		<string>0</string>
+		<key>CHOICE_DART</key>
+		<string>0</string>
+		<key>CHOICE_POSTURE</key>
+		<string>0</string>
+		<key>CHOICE_ISEPOSTURE</key>
+		<string>0</string>
+		<key>CHOICE_NVM</key>
+		<string>0</string>
+		<key>CHOICE_UMBRELLA</key>
+		<string>1</string>
 		<key>DISABLE_VPN</key>
 		<string>true</string>
 		<key>DISABLE_CUSTOMER_EXPERIENCE_FEEDBACK</key>
 		<string>false</string>
-        <key>HIDE_UNINSTALLERS</key>
-        <string>1</string>
+		<key>HIDE_UNINSTALLERS</key>
+		<string>1</string>
 		<key>PACKAGER</key>
-        <string>SAPCorp</string>
-        <key>VENDOR</key>
+		<string>SAPCorp</string>
+		<key>VENDOR</key>
 		<string>Cisco</string>
 		<key>SOFTWARETITLE1</key>
 		<string>Secure</string>
