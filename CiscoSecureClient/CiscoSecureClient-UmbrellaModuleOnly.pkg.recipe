@@ -277,8 +277,8 @@ else
     targetVolume=&quot;&quot;
 fi
 uninstallAppBundlePaths=(
-		&quot;${targetVolume}/Applications/Cisco/Uninstall SecureClient DART.app&quot;
-		&quot;${targetVolume}/Applications/Cisco/Uninstall SecureClient.app&quot;
+		&quot;${targetVolume}/Applications/Cisco/Uninstall Cisco Secure Client - DART.app&quot;
+		&quot;${targetVolume}/Applications/Cisco/Uninstall Cisco Secure Client.app&quot;
 	)
 exitCode=0
 
