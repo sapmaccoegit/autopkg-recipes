@@ -73,7 +73,7 @@
                   <key>version</key>
                   <string>%version%</string>
                   <key>id</key>
-                  <string>corp.sap.feedbackcatcher.pkg</string>
+                  <string>com.sap.it.mobile.feedbackcatcher.mac</string>
                   <key>options</key>
                   <string>purge_ds_store</string>
                   <key>chown</key>
