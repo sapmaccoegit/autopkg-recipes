@@ -49,7 +49,7 @@ If you need more packages installing, you should make a copy of this recipe and 
         <key>CHOICE_UMBRELLA</key>
         <string>1</string>
 		<key>DISABLE_VPN</key>
-		<string>true</string>
+		<string>false</string>
 		<key>DISABLE_CUSTOMER_EXPERIENCE_FEEDBACK</key>
 		<string>false</string>
         <key>HIDE_UNINSTALLERS</key>
