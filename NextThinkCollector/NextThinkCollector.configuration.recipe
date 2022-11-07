@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest configuration files for NextThink Collector.</string>
+    <key>Identifier</key>
+    <string>corp.sap.maccoe.configuration.NextThinkCollector</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>NextThink Collector</string>
+        <key>CONFIG_DOWNLOAD_URL</key>
+        <string>Put_config_download_URL_into_AutoPkg_recipe_override</string>
+        <key>CONFIG_DOWNLOAD_USERAGENT</key>
+        <string>Put_config_download_useragent_into_AutoPkg_recipe_override</string>
+        <key>CONFIG_DOWNLOAD_REFERER</key>
+        <string>Put_config_download_referer_into_AutoPkg_recipe_override</string>
+         <key>VENDOR</key>
+         <string>NextThink</string>
+         <key>SOFTWARETITLE</key>
+         <string>Collector</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>2.0.0</string>
+    <key>ParentRecipe</key>
+    <string>corp.sap.maccoe.download.NextThinkCollector</string>
+    <key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>CONFIG_DOWNLOAD_URL == "Put_config_download_URL_into_AutoPkg_recipe_override"</string>
+			</dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>CONFIG_DOWNLOAD_USERAGENT == "Put_config_download_useragent_into_AutoPkg_recipe_override"</string>
+			</dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>predicate</key>
+				<string>CONFIG_DOWNLOAD_REFERER == "Put_config_download_referer_into_AutoPkg_recipe_override"</string>
+			</dict>
+			<key>Processor</key>
+			<string>StopProcessingIf</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+                <key>filename</key>
+                <string>latestnextthinkcollectorconfiguration.zip</string>
+				<key>url</key>
+				<string>%CONFIG_DOWNLOAD_URL%</string>
+				<key>request_headers</key>
+				<dict>
+					<key>user-agent</key>
+					<string>%CONFIG_DOWNLOAD_USERAGENT%</string>
+					<key>referer</key>
+					<string>%CONFIG_DOWNLOAD_REFERER%</string>
+				</dict>
+			</dict>
+		</dict>
+    </array>
+</dict>
+</plist>
