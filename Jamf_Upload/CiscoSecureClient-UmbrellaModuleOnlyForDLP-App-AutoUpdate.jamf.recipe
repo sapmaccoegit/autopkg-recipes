@@ -9,7 +9,7 @@
       <key>Input</key>
       <dict>
          <key>NAME</key>
-         <string>Cisco AnyConnect Secure Mobility Client</string>
+         <string>Cisco Secure Client</string>
          <key>CATEGORY</key>
          <string>Apps</string>
          <key>PKG_CATEGORY</key>
@@ -17,7 +17,7 @@
          <key>PACKAGE_PRIORITY</key>
          <string>6</string>
          <key>PROD_NAME</key>
-         <string>CiscoAnyConnect</string>
+         <string>CiscoSecureClient</string>
          <key>POLICY_NAME</key>
          <string>macOS-i858772-202204&#58; Auto Update %PROD_NAME% Only Umbrella Module Enabled For DLP</string>
          <key>POLICY_CATEGORY</key>
