@@ -16,10 +16,14 @@
          <string>Collector</string>
          <key>PACKAGER</key>
          <string>SAPCorp</string>
+         <key>NTTCPPORT</key>
+         <string>443</string>
+         <key>NTUDPPORT</key>
+         <string>999</string>
          <key>NTSERVERADDRESS</key>
          <string>Put_nextthink_server_address_into_AutoPkg_recipe_override</string>
-         <key>NTENVIRONMENT</key>
-         <string>Put_nextthink_environment_into_AutoPkg_recipe_override</string>
+         <key>NTSTRINGTAG</key>
+         <string>Put_nextthink_string_tag_into_AutoPkg_recipe_override</string>
       </dict>
       <key>MinimumVersion</key>
       <string>1.0.0</string>
@@ -40,7 +44,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>predicate</key>
-				<string>NTENVIRONMENT == "Put_nextthink_environment_into_AutoPkg_recipe_override"</string>
+				<string>NTSTRINGTAG == "Put_nextthink_string_tag_into_AutoPkg_recipe_override"</string>
 			</dict>
 			<key>Processor</key>
 			<string>StopProcessingIf</string>
@@ -178,8 +182,10 @@ csiAppPath="$dmgMount/csi.app/Contents/MacOS/"
 csiAppPath=${csiAppPath%%/}
 
 #installer variables
-environment="%NTENVIRONMENT%"
-address="%NTSERVERADDRESS%" 
+address="%NTSERVERADDRESS%"
+stringtag="%NTSTRINGTAG%"
+tcpport="%NTTCPPORT%"
+udpport="%NTUDPPORT%"
 customerKey="$(dirname $0)/CustomerKeys/*.txt"
 
 # Mount the DMG
@@ -188,7 +194,7 @@ customerKey="$(dirname $0)/CustomerKeys/*.txt"
 # Install the Nextthink Collector software
 
 # Define the parameters for csi.app for installing the Collector from the command line interface
-"$csiAppPath"/csi -address $address -port 999 -tcp_port 443 -key $customerKey -data_over_tcp enable -use_assignment enable -tag 0
+"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -data_over_tcp enable -tag 0 -string_tag ${stringtag}
 
 # Disable/Enable Coordinator Service
 launchctl bootout system /Library/LaunchDaemons/com.nexthink.collector.nxtcoordinator.plist
