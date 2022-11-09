@@ -181,7 +181,7 @@ customerKey="$(dirname $0)/CustomerKeys/*.txt"
 # Install the Nextthink Collector software
 
 # Define the parameters for csi.app for installing the Collector from the command line interface
-"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -data_over_tcp enable -tag 0 -string_tag ${stringtag}
+"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -data_over_tcp enable -tag 0 -string_tag "$stringtag"
 
 # Disable/Enable Coordinator Service
 launchctl bootout system /Library/LaunchDaemons/com.nexthink.collector.nxtcoordinator.plist
