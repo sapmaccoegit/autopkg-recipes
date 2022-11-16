@@ -3,15 +3,15 @@
 <plist version="1.0">
    <dict>
       <key>Description</key>
-      <string>Downloads the latest NextThink Collector installer package and prepares it for deployment.</string>
+      <string>Downloads the latest NexThink Collector installer package and prepares it for deployment.</string>
       <key>Identifier</key>
-      <string>corp.sap.maccoe.pkg.NextThinkCollector</string>
+      <string>corp.sap.maccoe.pkg.NexThinkCollector</string>
       <key>Input</key>
       <dict>
          <key>NAME</key>
-         <string>NextThink Collector</string>
+         <string>NexThink Collector</string>
          <key>VENDOR</key>
-         <string>NextThink</string>
+         <string>NexThink</string>
          <key>SOFTWARETITLE</key>
          <string>Collector</string>
          <key>PACKAGER</key>
@@ -32,7 +32,7 @@
       <key>MinimumVersion</key>
       <string>1.0.0</string>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.download.NextThinkCollector</string>
+      <string>corp.sap.maccoe.download.NexThinkCollector</string>
       <key>Process</key>
       <array>
 		<dict>
@@ -178,7 +178,7 @@ customerKey="$(dirname $0)/CustomerKeys/*.txt"
 # Mount the DMG
 /usr/bin/hdiutil attach "$dmgFile" -mountpoint "$dmgMount" -nobrowse -noverify -noautoopen
 
-# Install the Nextthink Collector software
+# Install the NexThink Collector software
 
 # Define the parameters for csi.app for installing the Collector from the command line interface
 "$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -data_over_tcp enable -tag 0 -string_tag "$stringtag"

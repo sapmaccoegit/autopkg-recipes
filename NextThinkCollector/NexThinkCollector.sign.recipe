@@ -5,14 +5,14 @@
       <key>Description</key>
       <string>Signs a provided installer package using a signing certificate identifier.</string>
       <key>Identifier</key>
-      <string>corp.sap.maccoe.sign.NextThinkCollector</string>
+      <string>corp.sap.maccoe.sign.NexThinkCollector</string>
       <key>Input</key>
       <dict>
          <key>SIGNINGCERTIFICATE</key>
          <string>Put_Signing_Certificate_into_AutoPkg_recipe_override</string>
       </dict>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.pkg.NextThinkCollector</string>
+      <string>corp.sap.maccoe.pkg.NexThinkCollector</string>
       <key>Process</key>
       <array>
          <dict>

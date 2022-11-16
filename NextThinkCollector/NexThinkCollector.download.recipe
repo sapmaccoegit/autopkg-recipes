@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of NextThink Collector.</string>
+    <string>Downloads the latest version of NexThink Collector.</string>
     <key>Identifier</key>
-    <string>corp.sap.maccoe.download.NextThinkCollector</string>
+    <string>corp.sap.maccoe.download.NexThinkCollector</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>NextThink Collector</string>
+        <string>NexThink Collector</string>
         <key>DOWNLOAD_URL</key>
         <string>https://download.nexthink.com/releases/latest/OSX_Collector/Nexthink_Collector.dmg</string>
          <key>VENDOR</key>
-         <string>NextThink</string>
+         <string>NexThink</string>
          <key>SOFTWARETITLE</key>
          <string>Collector</string>
     </dict>
