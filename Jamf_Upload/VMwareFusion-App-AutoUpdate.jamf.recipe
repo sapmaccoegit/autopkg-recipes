@@ -34,7 +34,7 @@
       <key>MinimumVersion</key>
       <string>2.0.0</string>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.sign.VMwareFusion12</string>
+      <string>corp.sap.maccoe.sign.VMwareFusion13</string>
       <key>Process</key>
       <array>
          <dict>

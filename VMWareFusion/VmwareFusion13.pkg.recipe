@@ -3,9 +3,9 @@
 <plist version="1.0">
    <dict>
       <key>Description</key>
-      <string>Downloads the latest version of VMware Fusion 12 and creates a package</string>
+      <string>Downloads the latest version of VMware Fusion 13 and creates a package</string>
       <key>Identifier</key>
-      <string>corp.sap.maccoe.pkg.VMwareFusion12</string>
+      <string>corp.sap.maccoe.pkg.VMwareFusion13</string>
       <key>Input</key>
       <dict>
          <key>NAME</key>
