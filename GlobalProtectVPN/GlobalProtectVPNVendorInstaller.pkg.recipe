@@ -5,7 +5,7 @@
       <key>Description</key>
       <string>Downloads the latest version of PaloAlto's GlobalProtect installer package and renames the package with version. Requires the use of HOSTNAME to point at your GlobalProtect instance. Use pkg_path in parent recipes for package with version.</string>
       <key>Identifier</key>
-      <string>corp.sap.maccoe.pkg.globalprotect</string>
+      <string>corp.sap.maccoe.pkg.GlobalProtect</string>
       <key>Input</key>
       <dict>
          <key>NAME</key>
