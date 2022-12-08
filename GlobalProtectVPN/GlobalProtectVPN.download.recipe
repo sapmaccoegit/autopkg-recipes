@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+   <dict>
+      <key>Description</key>
+      <string>Downloads latest version of GlobalProtect VPN Client from the Palo Alto VPN server.</string>
+      <key>Comment</key>
+      <string>Use HOSTNAME var to specify the PaloAlto VPN Gateway's DNS address. For PLATFORM use either mac or win</string>
+      <key>Identifier</key>
+      <string>corp.sap.maccoe.download.GlobalProtect</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>GlobalProtect</string>
+         <key>HOSTNAME</key>
+         <string>Put_PaloAlto_hostname_into_AutoPkg_recipe_override</string>
+         <key>PLATFORM</key>
+         <string>mac</string>
+         <key>DOWNLOAD_URL</key>
+         <string>https://%HOSTNAME%/global-protect/getmsi.esp?platform=%PLATFORM%</string>
+      </dict>
+      <key>MinimumVersion</key>
+      <string>1.0.0</string>
+      <key>Process</key>
+      <array>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>HOSTNAME == "Put_PaloAlto_hostname_into_AutoPkg_recipe_override"</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>url</key>
+               <string>%DOWNLOAD_URL%</string>
+               <key>filename</key>
+               <string>%NAME%.pkg</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+               <key>input_path</key>
+               <string>%pathname%</string>
+               <key>expected_authority_names</key>
+               <array>
+                  <string>Developer ID Installer: Palo Alto Networks (PXPZ95SK77)</string>
+                  <string>Developer ID Certification Authority</string>
+                  <string>Apple Root CA</string>
+               </array>
+            </dict>
+         </dict>
+      </array>
+   </dict>
+</plist>
