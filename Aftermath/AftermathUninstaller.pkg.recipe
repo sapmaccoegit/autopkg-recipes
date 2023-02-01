@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Uses parent download recipe to download the latest Jamf Aftermath uninstaller package.</string>
+	<key>Identifier</key>
+	<string>corp.sap.maccoe.pkg.AftermathUninstaller</string>
+      <key>Input</key>
+      <dict>
+         <key>NAME</key>
+         <string>Aftermath</string>
+         <key>VENDOR</key>
+         <string>Jamf</string>
+         <key>SOFTWARETITLE1</key>
+         <string>Aftermath</string>
+         <key>SOFTWARETITLE2</key>
+         <string>Uninstaller</string>
+      </dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>ParentRecipe</key>
+	<string>corp.sap.maccoe.download.AftermathUninstaller</string>
+	<key>Process</key>
+	<array>
+         <dict>
+            <key>Processor</key>
+            <string>GitHubReleasesInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+               <key>github_repo</key>
+               <string>jamf/aftermath</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_pkg</key>
+                <string>%pathname%</string>
+            </dict>
+         </dict>
+    </array>
+</dict>
+</plist>
