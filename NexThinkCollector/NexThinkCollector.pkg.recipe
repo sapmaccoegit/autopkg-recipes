@@ -20,6 +20,12 @@
          <string>443</string>
          <key>NTUDPPORT</key>
          <string>999</string>
+         <key>NTREMOTEACTIONS</key>
+         <string>disabled</string>
+         <key>NTENGAGE</key>
+         <string>disable</string>
+         <key>NTASSIGNMENT</key>
+         <string>enable</string>
          <key>NTSERVERADDRESS</key>
          <string>Put_nextthink_server_address_into_AutoPkg_recipe_override</string>
          <key>NTSTRINGTAG</key>
@@ -146,13 +152,13 @@
                <key>file_content</key>
                <string>#!/bin/bash
 
-# postinstall.sh, 0.6
-# (c) 2022, SAP SE (Rich Trouton &lt;rich.trouton@sap.com&gt;)
+# postinstall.sh, 0.7
+# (c) 2023, SAP SE (Rich Trouton &lt;rich.trouton@sap.com&gt;)
 
 # latest change:
-# 2022/11/07, Rich Trouton &lt;rich.trouton@sap.com&gt;
+# 2023/03/15, Rich Trouton &lt;rich.trouton@sap.com&gt;
 
-# Description: Script to install the Nexthink Collector from the pre-cached dmg installer file with Customer Key.
+# Description: Script to install the NexThink Collector from the pre-cached dmg installer file with Customer Key.
 
 ERROR=0
 
@@ -170,6 +176,9 @@ csiAppPath=${csiAppPath%%/}
 
 #installer variables
 address="%NTSERVERADDRESS%"
+remoteactions_setting="%NTREMOTEACTIONS%"
+engage_setting="%NTENGAGE%"
+assignment_setting="%NTASSIGNMENT%"
 stringtag="%NTSTRINGTAG%"
 tcpport="%NTTCPPORT%"
 udpport="%NTUDPPORT%"
@@ -181,7 +190,7 @@ customerKey="$(dirname $0)/CustomerKeys/*.txt"
 # Install the NexThink Collector software
 
 # Define the parameters for csi.app for installing the Collector from the command line interface
-"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -data_over_tcp enable -tag 0 -string_tag "$stringtag"
+"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -engage ${engage_setting} -data_over_tcp enable -use_assignment ${assignment_setting} -ra_execution_policy ${remoteactions_setting} -string_tag "$stringtag"
 
 # Disable/Enable Coordinator Service
 launchctl bootout system /Library/LaunchDaemons/com.nexthink.collector.nxtcoordinator.plist
