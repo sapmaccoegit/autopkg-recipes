@@ -34,7 +34,7 @@
       <key>MinimumVersion</key>
       <string>2.0.0</string>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.pkg.microsoftuniversalonedrive</string>
+      <string>corp.sap.maccoe.pkg.microsoftonedrive</string>
       <key>Process</key>
       <array>
          <dict>
