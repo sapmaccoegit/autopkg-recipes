@@ -21,7 +21,7 @@
          <key>NTUDPPORT</key>
          <string>999</string>
          <key>NTREMOTEACTIONS</key>
-         <string>disabled</string>
+         <string>signed_trusted</string>
          <key>NTENGAGE</key>
          <string>disable</string>
          <key>NTASSIGNMENT</key>
