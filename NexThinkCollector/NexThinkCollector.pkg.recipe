@@ -23,13 +23,15 @@
          <key>NTREMOTEACTIONS</key>
          <string>signed_trusted</string>
          <key>NTENGAGE</key>
-         <string>disable</string>
+         <string>enable</string>
          <key>NTASSIGNMENT</key>
          <string>enable</string>
          <key>NTSERVERADDRESS</key>
          <string>Put_nextthink_server_address_into_AutoPkg_recipe_override</string>
          <key>NTSTRINGTAG</key>
-         <string>Put_nextthink_string_tag_into_AutoPkg_recipe_override</string>
+         <string></string>
+         <key>NTUPNPRIVACY</key>
+         <string>cleartext</string>
          <key>NTCUSTOMERKEYNAME</key>
          <string>sap-cloud-nexthink-customer-key.txt</string>
          <key>NTCUSTOMERKEYDATA</key>
@@ -46,15 +48,6 @@
 			<dict>
 				<key>predicate</key>
 				<string>NTSERVERADDRESS == "Put_nextthink_server_address_into_AutoPkg_recipe_override"</string>
-			</dict>
-			<key>Processor</key>
-			<string>StopProcessingIf</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>predicate</key>
-				<string>NTSTRINGTAG == "Put_nextthink_string_tag_into_AutoPkg_recipe_override"</string>
 			</dict>
 			<key>Processor</key>
 			<string>StopProcessingIf</string>
@@ -156,7 +149,7 @@
 # (c) 2023, SAP SE (Rich Trouton &lt;rich.trouton@sap.com&gt;)
 
 # latest change:
-# 2023/03/15, Rich Trouton &lt;rich.trouton@sap.com&gt;
+# 2023/09/29, Rich Trouton &lt;rich.trouton@sap.com&gt;
 
 # Description: Script to install the NexThink Collector from the pre-cached dmg installer file with Customer Key.
 
@@ -178,6 +171,7 @@ csiAppPath=${csiAppPath%%/}
 address="%NTSERVERADDRESS%"
 remoteactions_setting="%NTREMOTEACTIONS%"
 engage_setting="%NTENGAGE%"
+upn_privacy_setting="%NTUPNPRIVACY%"
 assignment_setting="%NTASSIGNMENT%"
 stringtag="%NTSTRINGTAG%"
 tcpport="%NTTCPPORT%"
@@ -190,7 +184,7 @@ customerKey="$(dirname $0)/CustomerKeys/*.txt"
 # Install the NexThink Collector software
 
 # Define the parameters for csi.app for installing the Collector from the command line interface
-"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -engage ${engage_setting} -data_over_tcp enable -use_assignment ${assignment_setting} -ra_execution_policy ${remoteactions_setting} -string_tag "$stringtag"
+"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -engage ${engage_setting} -data_over_tcp enable -use_assignment ${assignment_setting} -ra_execution_policy ${remoteactions_setting} -upn_privacy ${upn_privacy_setting}
 
 # Disable/Enable Coordinator Service
 launchctl bootout system /Library/LaunchDaemons/com.nexthink.collector.nxtcoordinator.plist
