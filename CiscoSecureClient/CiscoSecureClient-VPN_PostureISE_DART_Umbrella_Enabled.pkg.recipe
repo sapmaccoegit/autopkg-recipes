@@ -108,7 +108,7 @@ If you need more packages installing, you should make a copy of this recipe and 
 		<key>SOFTWARETITLE2</key>
 		<string>Client</string>
 		<key>SOFTWARETITLE3</key>
-		<string>VPN_PostureISE_DART_Umbrella_Enabled</string>
+		<string>VPN_ISE_DART_Umbrella_Enabled</string>
 		<key>PKGID</key>
 		<string>corp.sap.cisco.SecureClient</string>
 	</dict>
