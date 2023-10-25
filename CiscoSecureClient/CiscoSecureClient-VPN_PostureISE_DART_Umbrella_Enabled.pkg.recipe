@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Comments</key>
+	<string>Based on https://github.com/autopkg/grahampugh-recipes/blob/master/CiscoSecureClient/CiscoSecureClient.pkg.recipe
+
+Wraps the vendor package so that it can be run with Choice Changes XML.
+
+Requires a configuration xml profile (VPN_XML) which should be added to the RECIPE_OVERRIDE_DIR before running the recipe. An example is provided in the recipe repo folder, named example.xml.
+
+If you need more packages installing, you should make a copy of this recipe and edit the ChoicesXMLGenerator choices list. This isn't overridable. Don't forget to change the Identifier if you do this.
+</string>
+	<key>Description</key>
+	<string>Creates a Cisco Secure Client package with all modules enabled.</string>
+	<key>Identifier</key>
+	<string>corp.sap.maccoe.pkg.CiscoSecureClient-VPN_PostureISE_DART_Umbrella_Enabled</string>
+	<key>ParentRecipe</key>
+	<string>corp.sap.maccoe.download.CiscoSecureClient</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Cisco Secure Client</string>
+		<key>VPN_XML</key>
+		<string>example.xml</string>
+		<key>CONTENT_XML</key>
+		<string>Put_escaped_XML_profile_text_into_AutoPkg_recipe_override</string>
+		<key>UMBRELLA_ORGANIZATION_ID</key>
+		<string>Put_text_into_AutoPkg_recipe_override</string>
+		<key>UMBRELLA_FINGERPRINT</key>
+		<string>Put_text_into_AutoPkg_recipe_override</string>
+		<key>UMBRELLA_USER_ID</key>
+		<string>Put_text_into_AutoPkg_recipe_override</string>
+        <key>CHOICE_VPN</key>
+        <string>1</string>
+        <key>CHOICE_WEBSECURITY</key>
+        <string>0</string>
+        <key>CHOICE_FIREAMP</key>
+        <string>0</string>
+        <key>CHOICE_DART</key>
+        <string>1</string>
+        <key>CHOICE_POSTURE</key>
+        <string>0</string>
+        <key>CHOICE_ISEPOSTURE</key>
+        <string>1</string>
+        <key>CHOICE_NVM</key>
+        <string>0</string>
+        <key>CHOICE_UMBRELLA</key>
+        <string>1</string>
+		<key>DISABLE_VPN</key>
+		<string>true</string>
+		<key>DISABLE_CUSTOMER_EXPERIENCE_FEEDBACK</key>
+		<string>false</string>
+		<key>LOCALPOLICY_BYPASSDOWNLOADER</key>
+		<string>false</string>
+		<key>LOCALPOLICY_EXCLUDEPEMFILECERTSTORE</key>
+		<string>false</string>
+		<key>LOCALPOLICY_FIPSMODE</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTHELPWEBDEPLOY</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTLOCALIZATIONWEBDEPLOY</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTPREFERENCECACHING</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTRESOURCEWEBDEPLOY</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTSCRIPTWEBDEPLOY</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTSERVERCERTSTORE</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTTUNNELPROTOCOLS</key>
+		<string>false</string>
+		<key>LOCALPOLICY_RESTRICTWEBLAUNCH</key>
+		<string>false</string>
+		<key>LOCALPOLICY_STRICTCERTIFICATETRUST</key>
+		<string>false</string>
+		<key>LOCALPOLICY_ALLOWCOMPLIANCEMODULEUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWHELPUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWISEPROFILEUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWLOCALIZATIONUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWMANAGEMENTVPNPROFILEUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWRESOURCEUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWSCRIPTUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWSERVICEPROFILEUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWSOFTWAREUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_ALLOWVPNPROFILEUPDATESFROMANYSERVER</key>
+		<string>true</string>
+		<key>LOCALPOLICY_TRUSTEDISECERTFINGERPRINTS</key>
+		<string>Put_escaped_XML_text_into_AutoPkg_recipe_override</string>
+        <key>HIDE_UNINSTALLERS</key>
+        <string>1</string>
+		<key>PACKAGER</key>
+        <string>SAPCorp</string>
+        <key>VENDOR</key>
+		<string>Cisco</string>
+		<key>SOFTWARETITLE1</key>
+		<string>Secure</string>
+		<key>SOFTWARETITLE2</key>
+		<string>Client</string>
+		<key>SOFTWARETITLE3</key>
+		<string>VPN_PostureISE_DART_Umbrella_Enabled</string>
+		<key>PKGID</key>
+		<string>corp.sap.cisco.SecureClient</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+					<key>Profiles</key>
+					<string>0755</string>
+					<key>Profiles/ampenabler</key>
+					<string>0755</string>
+					<key>Profiles/feedback</key>
+					<string>0755</string>
+					<key>Profiles/iseposture</key>
+					<string>0755</string>
+					<key>Profiles/nvm</key>
+					<string>0755</string>
+					<key>Profiles/umbrella</key>
+					<string>0755</string>
+					<key>Profiles/vpn</key>
+					<string>0755</string>
+					<key>Profiles/websecurity</key>
+					<string>0755</string>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts</string>
+			</dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgdirs</key>
+				<dict>
+				</dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/pkgroot</string>
+			</dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts/CiscoSecureClient.pkg</string>
+				<key>source_pkg</key>
+				<string>%pathname%/Cisco Secure Client.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>PkgCopier</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>%CONTENT_XML%</string>
+				<key>file_mode</key>
+				<string>0644</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts/Profiles/vpn/%VPN_XML%</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>{
+  &quot;organizationId&quot; : &quot;%UMBRELLA_ORGANIZATION_ID%&quot;,
+  &quot;fingerprint&quot; : &quot;%UMBRELLA_FINGERPRINT%&quot;,
+  &quot;userId&quot; : &quot;%UMBRELLA_USER_ID%&quot;
+}
+</string>
+				<key>file_mode</key>
+				<string>0644</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts/Profiles/umbrella/OrgInfo.json</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;array&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_VPN%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_vpn&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_WEBSECURITY%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_websecurity&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_FIREAMP%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_fireamp&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_DART%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_dart&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_POSTURE%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_posture&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_ISEPOSTURE%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_iseposture&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_NVM%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_nvm&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_UMBRELLA%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_umbrella&lt;/string&gt;
+	&lt;/dict&gt;
+&lt;/array&gt;
+&lt;/plist&gt;
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts/InstallerChoices.xml</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>&lt;!-- Optional SecureClient installer settings are provided below. Configure the setting(s) as &quot;true&quot; (default &quot;false&quot; or commented out) to perform optional action(s) at install time.  --&gt;
+&lt;Transforms&gt;
+    &lt;DisableVPN&gt;%DISABLE_VPN%&lt;/DisableVPN&gt;
+    &lt;DisableCustomerExperienceFeedback&gt;%DISABLE_CUSTOMER_EXPERIENCE_FEEDBACK%&lt;/DisableCustomerExperienceFeedback&gt;
+&lt;/Transforms&gt;
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts/Profiles/ACTransforms.xml</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;AnyConnectLocalPolicy xmlns=&quot;http://schemas.xmlsoap.org/encoding/&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://schemas.xmlsoap.org/encoding/ AnyConnectLocalPolicy.xsd&quot; acversion=&quot;%version%&quot;&gt;
+&lt;BypassDownloader&gt;%LOCALPOLICY_BYPASSDOWNLOADER%&lt;/BypassDownloader&gt;
+&lt;ExcludePemFileCertStore&gt;%LOCALPOLICY_EXCLUDEPEMFILECERTSTORE%&lt;/ExcludePemFileCertStore&gt;
+&lt;FipsMode&gt;%LOCALPOLICY_FIPSMODE%&lt;/FipsMode&gt;
+&lt;RestrictHelpWebDeploy&gt;%LOCALPOLICY_RESTRICTHELPWEBDEPLOY%&lt;/RestrictHelpWebDeploy&gt;
+&lt;RestrictLocalizationWebDeploy&gt;%LOCALPOLICY_RESTRICTLOCALIZATIONWEBDEPLOY%&lt;/RestrictLocalizationWebDeploy&gt;
+&lt;RestrictPreferenceCaching&gt;%LOCALPOLICY_RESTRICTPREFERENCECACHING%&lt;/RestrictPreferenceCaching&gt;
+&lt;RestrictResourceWebDeploy&gt;%LOCALPOLICY_RESTRICTRESOURCEWEBDEPLOY%&lt;/RestrictResourceWebDeploy&gt;
+&lt;RestrictScriptWebDeploy&gt;%LOCALPOLICY_RESTRICTSCRIPTWEBDEPLOY%&lt;/RestrictScriptWebDeploy&gt;
+&lt;RestrictServerCertStore&gt;%LOCALPOLICY_RESTRICTSERVERCERTSTORE%&lt;/RestrictServerCertStore&gt;
+&lt;RestrictTunnelProtocols&gt;%LOCALPOLICY_RESTRICTTUNNELPROTOCOLS%&lt;/RestrictTunnelProtocols&gt;
+&lt;RestrictWebLaunch&gt;%LOCALPOLICY_RESTRICTWEBLAUNCH%&lt;/RestrictWebLaunch&gt;
+&lt;StrictCertificateTrust&gt;%LOCALPOLICY_STRICTCERTIFICATETRUST%&lt;/StrictCertificateTrust&gt;
+&lt;TrustedISECertFingerprints&gt;
+&lt;fingerprint&gt;
+&lt;algorithm&gt;SHA-256&lt;/algorithm&gt;
+%LOCALPOLICY_TRUSTEDISECERTFINGERPRINTS%
+&lt;/fingerprint&gt;
+&lt;/TrustedISECertFingerprints&gt;
+&lt;UpdatePolicy&gt;
+&lt;AllowComplianceModuleUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWCOMPLIANCEMODULEUPDATESFROMANYSERVER%&lt;/AllowComplianceModuleUpdatesFromAnyServer&gt;
+&lt;AllowHelpUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWHELPUPDATESFROMANYSERVER%&lt;/AllowHelpUpdatesFromAnyServer&gt;
+&lt;AllowISEProfileUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWISEPROFILEUPDATESFROMANYSERVER%&lt;/AllowISEProfileUpdatesFromAnyServer&gt;
+&lt;AllowLocalizationUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWLOCALIZATIONUPDATESFROMANYSERVER%&lt;/AllowLocalizationUpdatesFromAnyServer&gt;
+&lt;AllowManagementVPNProfileUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWMANAGEMENTVPNPROFILEUPDATESFROMANYSERVER%&lt;/AllowManagementVPNProfileUpdatesFromAnyServer&gt;
+&lt;AllowResourceUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWRESOURCEUPDATESFROMANYSERVER%&lt;/AllowResourceUpdatesFromAnyServer&gt;
+&lt;AllowScriptUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWSCRIPTUPDATESFROMANYSERVER%&lt;/AllowScriptUpdatesFromAnyServer&gt;
+&lt;AllowServiceProfileUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWSERVICEPROFILEUPDATESFROMANYSERVER%&lt;/AllowServiceProfileUpdatesFromAnyServer&gt;
+&lt;AllowSoftwareUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWSOFTWAREUPDATESFROMANYSERVER%&lt;/AllowSoftwareUpdatesFromAnyServer&gt;
+&lt;AllowVPNProfileUpdatesFromAnyServer&gt;%LOCALPOLICY_ALLOWVPNPROFILEUPDATESFROMANYSERVER%&lt;/AllowVPNProfileUpdatesFromAnyServer&gt;&lt;/UpdatePolicy&gt;
+&lt;/AnyConnectLocalPolicy&gt;</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts/AnyConnectLocalPolicy.xml</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>file_content</key>
+				<string>#!/bin/bash
+
+# postinstall.sh, 0.1.9
+# (c) 2017-2023, SAP SE (Marc Thielemann &lt;marc.thielemann@sap.com&gt;)
+
+# latest change:
+# 2023/10/23, Rich Trouton &lt;rich.trouton@sap.com&gt;
+
+
+packagePath=&quot;${0%/*}/CiscoSecureClient.pkg&quot;
+choicesXML=&quot;${0%/*}/InstallerChoices.xml&quot;
+AnyConnectLPXML=&quot;${0%/*}/AnyConnectLocalPolicy.xml&quot;
+# Set value in AutoPkg override, default is 1 for &quot;true&quot;
+hideUninstallers=&quot;%HIDE_UNINSTALLERS%&quot;
+# Array of uninstall application bundles on the installer&apos;s target volume
+if [[ -n $3 ]]; then
+    targetVolume=$3
+else
+    targetVolume=&quot;&quot;
+fi
+uninstallAppBundlePaths=(
+		&quot;${targetVolume}/Applications/Cisco/Uninstall Cisco Secure Client - DART.app&quot;
+		&quot;${targetVolume}/Applications/Cisco/Uninstall Cisco Secure Client.app&quot;
+	)
+exitCode=0
+
+
+# Run embedded installer with the Choice Changes XML
+if [[ -r &quot;${packagePath}&quot; &amp;&amp; -r &quot;${choicesXML}&quot; ]]; then
+	if ! /usr/sbin/installer -applyChoiceChangesXML &quot;${choicesXML}&quot; -pkg &quot;${packagePath}&quot; -target &quot;$3&quot;; then
+		echo &quot;SAPCorp&#58; Installation of package \&quot;${packagePath}\&quot; failed.&quot;
+		exitCode=1
+	fi
+else
+	echo &quot;SAPCorp&#58; Package \&quot;${packagePath}\&quot; not found.&quot;
+	exitCode=1
+fi
+
+# Remove existing /opt/cisco/secureclient/AnyConnectLocalPolicy.xml file
+
+if [[ -f &quot;/opt/cisco/secureclient/AnyConnectLocalPolicy.xml&quot; ]]; then
+    rm &quot;/opt/cisco/secureclient/AnyConnectLocalPolicy.xml&quot;
+fi
+
+# Copy customized AnyConnectLocalPolicy.xml file into /opt/cisco/secureclient
+
+/bin/cp &quot;$AnyConnectLPXML&quot; &quot;/opt/cisco/secureclient/AnyConnectLocalPolicy.xml&quot;
+/usr/sbin/chown root:wheel &quot;/opt/cisco/secureclient/AnyConnectLocalPolicy.xml&quot;
+/bin/chmod 644 &quot;/opt/cisco/secureclient/AnyConnectLocalPolicy.xml&quot;
+
+# Hide uninstallers
+# Override will specify 1 as &quot;true&quot;
+# Set to another value to specify &quot;false&quot;
+# If variable is unset/null or still contains an AutoPkg variable reference, treat as &quot;true&quot;
+if [[ &quot;${hideUninstallers}&quot; -eq 1 || \
+      -z &quot;${hideUninstallers}&quot; || \
+      &quot;${hideUninstallers}&quot; == &quot;%&quot;&quot;HIDE_UNINSTALLERS&quot;&quot;%&quot; ]]; then
+	for uninstallAppBundlePath in &quot;${uninstallAppBundlePaths[@]}&quot;
+	do
+		if [[ -d &quot;${uninstallAppBundlePath}&quot; ]]; then
+			if /usr/bin/chflags hidden &quot;${uninstallAppBundlePath}&quot;; then
+				echo &quot;SAPCorp&#58; Uninstaller app bundle \&quot;${uninstallAppBundlePath}\&quot; was hidden successfully.&quot;
+			else
+				echo &quot;SAPCorp&#58; Uninstaller app bundle \&quot;${uninstallAppBundlePath}\&quot; was not hidden successfully.&quot;
+				exitCode=1
+			fi
+		else
+			echo &quot;SAPCorp&#58; Uninstaller app bundle \&quot;${uninstallAppBundlePath}\&quot; was not found and cannot be hidden.&quot;
+		fi
+    done
+else
+	echo &quot;SAPCorp&#58; Uninstallers will not be hidden.&quot;
+fi
+
+exit &quot;${exitCode}&quot;
+</string>
+				<key>file_mode</key>
+				<string>0755</string>
+				<key>file_path</key>
+				<string>%RECIPE_CACHE_DIR%/Scripts/postinstall</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>chown</key>
+					<array>
+					</array>
+					<key>id</key>
+					<string>%PKGID%.%VENDOR%%SOFTWARETITLE1%%SOFTWARETITLE2%</string>
+					<key>pkgname</key>
+					<string>%PACKAGER%_%VENDOR%_%SOFTWARETITLE1%_%SOFTWARETITLE2%_%SOFTWARETITLE3%_%version%</string>
+					<key>pkgroot</key>
+					<string>%RECIPE_CACHE_DIR%/pkgroot</string>
+					<key>pkgtype</key>
+					<string>flat</string>
+					<key>scripts</key>
+					<string>%RECIPE_CACHE_DIR%/Scripts</string>
+					<key>version</key>
+					<string>%version%</string>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/%VENDOR%</string>
+					<string>%RECIPE_CACHE_DIR%/pkgroot</string>
+				</array>
+			</dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
