@@ -45,6 +45,8 @@ If you need more packages installing, you should make a copy of this recipe and 
         <string>1</string>
         <key>CHOICE_NVM</key>
         <string>1</string>
+        <key>CHOICE_THOUSANDEYES</key>
+        <string>1</string>
         <key>CHOICE_UMBRELLA</key>
         <string>1</string>
 		<key>DISABLE_VPN</key>
@@ -166,7 +168,7 @@ If you need more packages installing, you should make a copy of this recipe and 
 		&lt;key&gt;choiceAttribute&lt;/key&gt;
 		&lt;string&gt;selected&lt;/string&gt;
 		&lt;key&gt;choiceIdentifier&lt;/key&gt;
-		&lt;string&gt;choice_vpn&lt;/string&gt;
+		&lt;string&gt;choice_anyconnect_vpn&lt;/string&gt;
 	&lt;/dict&gt;
 	&lt;dict&gt;
 		&lt;key&gt;attributeSetting&lt;/key&gt;
@@ -198,7 +200,7 @@ If you need more packages installing, you should make a copy of this recipe and 
 		&lt;key&gt;choiceAttribute&lt;/key&gt;
 		&lt;string&gt;selected&lt;/string&gt;
 		&lt;key&gt;choiceIdentifier&lt;/key&gt;
-		&lt;string&gt;choice_posture&lt;/string&gt;
+		&lt;string&gt;choice_secure_firewall_posture&lt;/string&gt;
 	&lt;/dict&gt;
 	&lt;dict&gt;
 		&lt;key&gt;attributeSetting&lt;/key&gt;
@@ -218,11 +220,19 @@ If you need more packages installing, you should make a copy of this recipe and 
 	&lt;/dict&gt;
 	&lt;dict&gt;
 		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_THOUSANDEYES%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_thousandeyes&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
 		&lt;integer&gt;%CHOICE_UMBRELLA%&lt;/integer&gt;
 		&lt;key&gt;choiceAttribute&lt;/key&gt;
 		&lt;string&gt;selected&lt;/string&gt;
 		&lt;key&gt;choiceIdentifier&lt;/key&gt;
-		&lt;string&gt;choice_umbrella&lt;/string&gt;
+		&lt;string&gt;choice_secure_umbrella&lt;/string&gt;
 	&lt;/dict&gt;
 &lt;/array&gt;
 &lt;/plist&gt;
