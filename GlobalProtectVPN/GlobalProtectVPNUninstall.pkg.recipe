@@ -143,7 +143,7 @@
             <key>Arguments</key>
             <dict>
                <key>file_path</key>
-               <string>%RECIPE_CACHE_DIR%/Scripts/postinstall</string>
+               <string>%RECIPE_CACHE_DIR%/Scripts/preinstall</string>
                <key>file_mode</key>
                <string>0755</string>
                <key>file_content</key>
@@ -168,6 +168,108 @@ else
 fi
 
 exit $ERROR</string>
+            </dict>
+         </dict>
+                  <dict>
+                     <key>Processor</key>
+                     <string>FileCreator</string>
+                     <key>Arguments</key>
+                     <dict>
+                        <key>file_path</key>
+                        <string>%RECIPE_CACHE_DIR%/Scripts/postinstall</string>
+                        <key>file_mode</key>
+                        <string>0755</string>
+                        <key>file_content</key>
+                        <string>#!/bin/bash
+
+# SAPCorp_GlobalProtect_Uninstall.sh, 0.1.0
+# (c) 2023, SAP SE (Rich Trouton &lt;rich.trouton@sap.com&gt;)
+
+# Uninstalls Palo Alto GlobalProtect
+
+# Latest change:
+# 2023/11/06, Rich Trouton &lt;rich.trouton@sap.com&gt;
+
+# Run the GlobalProtect uninstaller if available.
+
+if [[ -x &quot;/Applications/GlobalProtect.app/Contents/Resources/uninstall_gp.sh&quot; ]]; then
+	&quot;/Applications/GlobalProtect.app/Contents/Resources/uninstall_gp.sh&quot;
+fi
+
+# Run the Global Protect DEM agent uninstaller if available.
+
+if [[ -x &quot;/Library/Application Support/PaloAltoNetworks/DEM/uninstall_agents.sh&quot; ]]; then
+	&quot;/Library/Application Support/PaloAltoNetworks/DEM/uninstall_agents.sh&quot;
+fi
+
+# Unload the GlobalProtect LaunchAgents for the current user.
+
+currentUser=$(/bin/ls -l /dev/console | /usr/bin/awk &apos;{ print $3 }&apos;)
+if [[ -n &quot;$currentUser&quot; &amp;&amp; &quot;$currentUser&quot; != &quot;root&quot; ]]; then
+	/bin/launchctl bootout gui/$(/usr/bin/id -u &quot;$currentUser&quot;) /Library/LaunchAgents/com.paloaltonetworks.*
+fi
+
+# Unload the GlobalProtect LaunchDaemons.
+
+/bin/launchctl bootout system /Library/LaunchDaemons/com.paloaltonetworks.*
+
+# Quit the currently running GlobalProtect processes
+
+/usr/bin/killall &quot;PanGPS&quot; &quot;GlobalProtect&quot;
+
+# Remove any existing GlobalProtect files
+
+/bin/rm -rf &quot;/Library/LaunchAgents/&quot;com.paloaltonetworks.gp.* \
+			&quot;/Library/LaunchDaemons/&quot;com.paloaltonetworks.gp.* \
+			&quot;/Library/Application Support/PaloAltoNetworks&quot; \
+			&quot;/Library/Caches/PaloAltoNetworks&quot; \
+			&quot;/Library/Logs/PaloAltoNetworks&quot; \
+			&quot;/private/var/root/Library/Caches/com.paloaltonetworks.DemUpdateService&quot; \
+			&quot;/private/var/root/Library/HTTPStorages/com.paloaltonetworks.DemUpdateService&quot; \
+			&quot;/private/var/root/Library/Preferences/com.paloaltonetworks.DemUpdateService.plist&quot; \
+			&quot;/Library/Logs/PaloAltoNetworks/GlobalProtect&quot; \
+			&quot;/Applications/GlobalProtect.app&quot; \
+			&quot;/Applications/Palo Alto Networks DEM.app&quot; \
+			&quot;/Library/Security/SecurityAgentPlugins/gplogin.bundle&quot; \
+			&quot;/Library/Preferences/&quot;com.paloaltonetworks.GlobalProtect* \
+			&quot;/Library/Preferences/&quot;PanGPS* \
+			&quot;/Library/Application Support/JAMF/Receipts/PaloAlto_GlobalProtect_&quot;*.pkg \
+			&quot;/Library/Application Support/JAMF/Receipts/SAPCorp_PaloAlto_GlobalProtect_Uninstaller_&quot;*.pkg
+			
+localUsers=$(/usr/bin/dscl . -list /Users | /usr/bin/grep -v &quot;^_&quot;)
+
+for userName in ${localUsers}; do
+
+  # Get path to user&apos;s home directory
+
+  userHome=$(/usr/bin/dscl . -read /Users/$userName NFSHomeDirectory 2&gt;/dev/null | /usr/bin/sed &apos;s/^[^\/]*//g&apos;)
+  
+  # Remove user-level files from users&apos; home directories
+  
+	if [[ -d &quot;$userHome&quot; &amp;&amp; &quot;$userHome&quot; != &quot;/var/empty&quot; ]]; then
+		/bin/rm -rf &quot;$userHome/Library/Application Support/PaloAltoNetworks&quot; \
+		           &quot;$userHome/Library/Caches/&quot;com.paloaltonetworks.GlobalProtect.* \
+		           &quot;$userHome/Library/HTTPStorages/&quot;com.paloaltonetworks.GlobalProtect.* \
+		           &quot;$userHome/Library/Logs/PaloAltoNetworks&quot; \
+		           &quot;$userHome/Library/Preferences/&quot;com.paloaltonetworks.GlobalProtect* \
+		           &quot;$userHome/Library/Preferences/&quot;PanGPS*
+	fi
+done
+
+# Remove the _panwdem user created by GlobalProtect
+
+if [[ -n $(/usr/bin/id _panwdem 2&gt;/dev/null) ]]; then
+	/usr/sbin/sysadminctl -deleteUser _panwdem --keepHome
+fi
+
+# Forget the installer package receipts
+
+allPackages=$(/usr/sbin/pkgutil --pkgs | /usr/bin/grep -E &quot;(com.paloaltonetworks.globalprotect|com.paloaltonetworks.dem)&quot;)
+for aPackage in ${allPackages}; do
+	/usr/sbin/pkgutil --forget &quot;$aPackage&quot; &gt;/dev/null 2&gt;&amp;1
+done
+
+exit 0</string>
             </dict>
          </dict>
          <dict>
