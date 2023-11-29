@@ -32,12 +32,14 @@ If you need more packages installing, you should make a copy of this recipe and 
 		<key>UMBRELLA_USER_ID</key>
 		<string>Put_text_into_AutoPkg_recipe_override</string>
 		<key>CHOICE_VPN</key>
-		<string>0</string>
+		<string>1</string>
 		<key>CHOICE_WEBSECURITY</key>
 		<string>0</string>
 		<key>CHOICE_FIREAMP</key>
 		<string>0</string>
 		<key>CHOICE_DART</key>
+		<string>0</string>
+		<key>CHOICE_DUO</key>
 		<string>0</string>
 		<key>CHOICE_POSTURE</key>
 		<string>0</string>
@@ -49,6 +51,8 @@ If you need more packages installing, you should make a copy of this recipe and 
         <string>0</string>
 		<key>CHOICE_UMBRELLA</key>
 		<string>1</string>
+		<key>CHOICE_ZEROTRUST</key>
+		<string>0</string>
 		<key>DISABLE_VPN</key>
 		<string>true</string>
 		<key>DISABLE_CUSTOMER_EXPERIENCE_FEEDBACK</key>
@@ -196,6 +200,14 @@ If you need more packages installing, you should make a copy of this recipe and 
 	&lt;/dict&gt;
 	&lt;dict&gt;
 		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_DUO%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_duo&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
 		&lt;integer&gt;%CHOICE_POSTURE%&lt;/integer&gt;
 		&lt;key&gt;choiceAttribute&lt;/key&gt;
 		&lt;string&gt;selected&lt;/string&gt;
@@ -233,6 +245,14 @@ If you need more packages installing, you should make a copy of this recipe and 
 		&lt;string&gt;selected&lt;/string&gt;
 		&lt;key&gt;choiceIdentifier&lt;/key&gt;
 		&lt;string&gt;choice_secure_umbrella&lt;/string&gt;
+	&lt;/dict&gt;
+	&lt;dict&gt;
+		&lt;key&gt;attributeSetting&lt;/key&gt;
+		&lt;integer&gt;%CHOICE_ZEROTRUST%&lt;/integer&gt;
+		&lt;key&gt;choiceAttribute&lt;/key&gt;
+		&lt;string&gt;selected&lt;/string&gt;
+		&lt;key&gt;choiceIdentifier&lt;/key&gt;
+		&lt;string&gt;choice_zta&lt;/string&gt;
 	&lt;/dict&gt;
 &lt;/array&gt;
 &lt;/plist&gt;
