@@ -23,7 +23,7 @@
 		<key>POLICY_TRIGGER</key>
 		<string>autoupdate-%PROD_NAME%</string>
 		<key>PROD_NAME</key>
-		<string>Network Time Reset</string>
+		<string>NetworkTimeReset</string>
 		<key>SLEEP_IN_SECONDS</key>
 		<string>0</string>
 		<key>STOPPROCESSINGIF_PREDICATE1</key>
