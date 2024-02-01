@@ -12,8 +12,12 @@
 		<string>Put in AutoPkg recipe override</string>
 		<key>NAME</key>
 		<string>Network Time Reset</string>
-		<key>SOFTWARETITLE</key>
-		<string>%NAME%</string>
+		<key>SOFTWARETITLE1</key>
+		<string>Network</string>
+		<key>SOFTWARETITLE2</key>
+		<string>Time</string>
+		<key>SOFTWARETITLE3</key>
+		<string>Reset</string>
 		<key>VENDOR</key>
 		<string>Put in AutoPkg recipe override</string>
 <!--
@@ -174,7 +178,7 @@
 					<key>options</key>
 					<string>purge_ds_store</string>
 					<key>pkgname</key>
-					<string>%VENDOR%-%SOFTWARETITLE%-%version%</string>
+					<string>%VENDOR%_%SOFTWARETITLE1%_%SOFTWARETITLE2%_%SOFTWARETITLE3%_%version%</string>
 					<key>pkgroot</key>
 					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
 					<key>version</key>
