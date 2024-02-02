@@ -24,13 +24,13 @@
         <key>SOLUTION_FILE_PATTERN</key>
 		<string>Put in AutoPkg recipe override</string>
  -->
- 		<key>SOLUTION_FILE_PATH</key>
+ 		<key>SOLUTION_FILE_NAME</key>
 		<string>Put in AutoPkg recipe override</string>
 		<key>SOLUTION_FILE_SOURCE</key>
 		<string>Put in AutoPkg recipe override</string>
 		<key>SOLUTION_FILE_MODE</key>
 		<string>0755</string>
-		<key>SOLUTION_FILE_INFO_PATH</key>
+		<key>SOLUTION_FILE_INFO_NAME</key>
 		<string>Put in AutoPkg recipe override</string>
 		<key>SOLUTION_FILE_INFO_SOURCE</key>
 		<string>Put in AutoPkg recipe override</string>
@@ -54,7 +54,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>file_path</key>
-				<string>%SOLUTION_FILE_INFO_PATH%</string>
+				<string>%RECIPE_CACHE_DIR%/%SOLUTION_FILE_INFO_NAME%</string>
 				<key>file_content</key>
 				<string>%SOLUTION_FILE_INFO_SOURCE%</string>
 			</dict>
@@ -65,7 +65,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>file_path</key>
-				<string>%SOLUTION_FILE_PATH%</string>
+				<string>%RECIPE_CACHE_DIR%/%SOLUTION_FILE_NAME%</string>
 				<key>file_content</key>
 				<string>%SOLUTION_FILE_SOURCE%</string>
 				<key>file_mode</key>
@@ -78,7 +78,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>input_plist_path</key>
-				<string>%SOLUTION_FILE_INFO_PATH%</string>
+				<string>%RECIPE_CACHE_DIR%/%SOLUTION_FILE_INFO_NAME%</string>
 				<key>plist_version_key</key>
 				<string>CFBundleShortVersionString</string>
 			</dict>
@@ -89,7 +89,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>pattern</key>
-				<string>%SOLUTION_FILE_PATH%</string>
+				<string>%RECIPE_CACHE_DIR%/%SOLUTION_FILE_NAME%</string>
 			</dict>
 			<key>Processor</key>
 			<string>FileFinder</string>
