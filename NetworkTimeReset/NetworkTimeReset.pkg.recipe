@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Creates a package for the Network Time Reset solution.</string>
 	<key>Identifier</key>
-	<string>corp.sap.maccoe.pkg.network-time-reset</string>
+	<string>corp.sap.maccoe.pkg.NetworkTimeReset</string>
 	<key>Input</key>
 	<dict>
 		<key>BUNDLE_ID</key>

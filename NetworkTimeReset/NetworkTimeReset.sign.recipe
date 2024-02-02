@@ -5,7 +5,7 @@
 	<key>Description</key>
 	<string>Creates a signed package for the Network Time Reset solution.</string>
 	<key>Identifier</key>
-	<string>corp.sap.maccoe.sign.network-time-reset</string>
+	<string>corp.sap.maccoe.sign.NetworkTimeReset</string>
 	<key>Input</key>
 	<dict>
 		<key>SIGNINGCERTIFICATE</key>
@@ -14,7 +14,7 @@
 	<key>MinimumVersion</key>
 	<string>0.5.0</string>
 	<key>ParentRecipe</key>
-	<string>corp.sap.maccoe.pkg.network-time-reset</string>
+	<string>corp.sap.maccoe.pkg.NetworkTimeReset</string>
 	<key>Process</key>
 	<array>
 		<dict>
