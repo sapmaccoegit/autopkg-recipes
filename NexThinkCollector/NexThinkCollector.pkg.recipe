@@ -36,6 +36,12 @@
          <string>sap-cloud-nexthink-customer-key.txt</string>
          <key>NTCUSTOMERKEYDATA</key>
          <string>Put_nextthink_customer_key_data_into_AutoPkg_recipe_override</string>
+         <key>NTDOMAINNAMEREPORTING</key>
+         <string>true</string>
+         <key>NTDATAPRIVACYFILTER</key>
+         <string>Put_nextthink_privacy_filter_data_into_AutoPkg_recipe_override</string>
+         <key>NTUSERINTERACTIONTIMEMONITORING</key>
+         <string>disable</string>
       </dict>
       <key>MinimumVersion</key>
       <string>1.0.0</string>
@@ -43,24 +49,33 @@
       <string>corp.sap.maccoe.download.NexThinkCollector</string>
       <key>Process</key>
       <array>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>predicate</key>
-				<string>NTSERVERADDRESS == "Put_nextthink_server_address_into_AutoPkg_recipe_override"</string>
-			</dict>
-			<key>Processor</key>
-			<string>StopProcessingIf</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>predicate</key>
-				<string>NTCUSTOMERKEYDATA == "Put_nextthink_customer_key_data_into_AutoPkg_recipe_override"</string>
-			</dict>
-			<key>Processor</key>
-			<string>StopProcessingIf</string>
-		</dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>NTSERVERADDRESS == "Put_nextthink_server_address_into_AutoPkg_recipe_override"</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>NTCUSTOMERKEYDATA == "Put_nextthink_customer_key_data_into_AutoPkg_recipe_override"</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>NTDATAPRIVACYFILTER == "Put_nextthink_privacy_filter_data_into_AutoPkg_recipe_override"</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
          <dict>
             <key>Comment</key>
             <string>Get version from the installer application</string>
@@ -145,11 +160,11 @@
                <key>file_content</key>
                <string>#!/bin/bash
 
-# postinstall.sh, 0.7
+# postinstall.sh, 0.8
 # (c) 2023, SAP SE (Rich Trouton &lt;rich.trouton@sap.com&gt;)
 
 # latest change:
-# 2023/09/29, Rich Trouton &lt;rich.trouton@sap.com&gt;
+# 2024/02/22, Rich Trouton &lt;rich.trouton@sap.com&gt;
 
 # Description: Script to install the NexThink Collector from the pre-cached dmg installer file with Customer Key.
 
@@ -169,6 +184,8 @@ csiAppPath=${csiAppPath%%/}
 
 #installer variables
 address="%NTSERVERADDRESS%"
+domain_name_reporting_setting="%NTDOMAINNAMEREPORTING%"
+data_privacy_filter_setting="%NTDATAPRIVACYFILTER%"
 remoteactions_setting="%NTREMOTEACTIONS%"
 engage_setting="%NTENGAGE%"
 upn_privacy_setting="%NTUPNPRIVACY%"
@@ -176,6 +193,7 @@ assignment_setting="%NTASSIGNMENT%"
 stringtag="%NTSTRINGTAG%"
 tcpport="%NTTCPPORT%"
 udpport="%NTUDPPORT%"
+user_interaction_time_monitoring_setting="%NTUSERINTERACTIONTIMEMONITORING%"
 customerKey="$(dirname $0)/CustomerKeys/*.txt"
 
 # Mount the DMG
@@ -184,7 +202,7 @@ customerKey="$(dirname $0)/CustomerKeys/*.txt"
 # Install the NexThink Collector software
 
 # Define the parameters for csi.app for installing the Collector from the command line interface
-"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -engage ${engage_setting} -data_over_tcp enable -use_assignment ${assignment_setting} -ra_execution_policy ${remoteactions_setting} -upn_privacy ${upn_privacy_setting}
+"$csiAppPath"/csi -address ${address} -port ${udpport} -tcp_port ${tcpport} -key ${customerKey} -engage ${engage_setting} -data_over_tcp enable -use_assignment ${assignment_setting} -ra_execution_policy ${remoteactions_setting} -upn_privacy ${upn_privacy_setting} -domain_name_reporting ${domain_name_reporting_setting} -data_privacy_filter "${data_privacy_filter_setting}" -user_interaction_time_monitoring ${user_interaction_time_monitoring_setting}
 
 # Disable/Enable Coordinator Service
 launchctl bootout system /Library/LaunchDaemons/com.nexthink.collector.nxtcoordinator.plist
