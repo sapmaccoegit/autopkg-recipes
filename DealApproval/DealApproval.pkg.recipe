@@ -22,7 +22,7 @@
       <key>MinimumVersion</key>
       <string>0.8.0</string>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.download.dealapproval</string>
+      <string>corp.sap.maccoe.download.DealApproval</string>
       <key>Process</key>
       <array>
          <dict>
