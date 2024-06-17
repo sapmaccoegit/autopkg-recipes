@@ -3,21 +3,23 @@
 <plist version="1.0">
    <dict>
       <key>Description</key>
-      <string>Downloads latest version of GlobalProtect VPN Client from the Palo Alto VPN server.</string>
-      <key>Comment</key>
-      <string>Use HOSTNAME var to specify the PaloAlto VPN Gateway's DNS address. For PLATFORM use either mac or win</string>
+      <string>Download recipe for Global Protect, which downloads a zip file containing an installer package for Global Protect for macOS.</string>
       <key>Identifier</key>
       <string>corp.sap.maccoe.download.GlobalProtect</string>
       <key>Input</key>
       <dict>
          <key>NAME</key>
          <string>GlobalProtect</string>
-         <key>HOSTNAME</key>
-         <string>Put_PaloAlto_hostname_into_AutoPkg_recipe_override</string>
-         <key>PLATFORM</key>
-         <string>mac</string>
+         <key>VENDOR</key>
+         <string>PaloAlto</string>
+         <key>SOFTWARETITLE</key>
+         <string>GlobalProtect</string>
          <key>DOWNLOAD_URL</key>
-         <string>https://%HOSTNAME%/global-protect/getmsi.esp?platform=%PLATFORM%</string>
+         <string>Put_GlobalProtect_download_URL_into_AutoPkg_recipe_override</string>
+         <key>DOWNLOAD_USERAGENT</key>
+         <string>Put_GlobalProtect_download_useragent_into_AutoPkg_recipe_override</string>
+         <key>DOWNLOAD_REFERER</key>
+         <string>Put_GlobalProtect_download_referer_into_AutoPkg_recipe_override</string>
       </dict>
       <key>MinimumVersion</key>
       <string>1.0.0</string>
@@ -27,7 +29,25 @@
             <key>Arguments</key>
             <dict>
                <key>predicate</key>
-               <string>HOSTNAME == "Put_PaloAlto_hostname_into_AutoPkg_recipe_override"</string>
+               <string>DOWNLOAD_URL == "Put_GlobalProtect_download_URL_into_AutoPkg_recipe_override"</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>DOWNLOAD_USERAGENT == "Put_GlobalProtect_download_useragent_into_AutoPkg_recipe_override"</string>
+            </dict>
+            <key>Processor</key>
+            <string>StopProcessingIf</string>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>predicate</key>
+               <string>DOWNLOAD_REFERER == "Put_GlobalProtect_download_referer_into_AutoPkg_recipe_override"</string>
             </dict>
             <key>Processor</key>
             <string>StopProcessingIf</string>
@@ -39,8 +59,13 @@
             <dict>
                <key>url</key>
                <string>%DOWNLOAD_URL%</string>
-               <key>filename</key>
-               <string>%NAME%.pkg</string>
+               <key>request_headers</key>
+               <dict>
+                  <key>user-agent</key>
+                  <string>%DOWNLOAD_USERAGENT%</string>
+                  <key>referer</key>
+                  <string>%DOWNLOAD_REFERER%</string>
+               </dict>
             </dict>
          </dict>
          <dict>
@@ -49,11 +74,33 @@
          </dict>
          <dict>
             <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+               <key>archive_path</key>
+               <string>%pathname%</string>
+               <key>destination_path</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%</string>
+               <key>purge_destination</key>
+               <true />
+            </dict>
+         </dict>
+         <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pattern</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/*.pkg</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileFinder</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
             <string>CodeSignatureVerifier</string>
             <key>Arguments</key>
             <dict>
                <key>input_path</key>
-               <string>%pathname%</string>
+               <string>%found_filename%</string>
                <key>expected_authority_names</key>
                <array>
                   <string>Developer ID Installer: Palo Alto Networks (PXPZ95SK77)</string>
