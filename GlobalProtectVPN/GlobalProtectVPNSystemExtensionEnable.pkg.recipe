@@ -106,12 +106,21 @@
             </dict>
          </dict>
          <dict>
+            <key>Arguments</key>
+            <dict>
+               <key>pattern</key>
+               <string>%RECIPE_CACHE_DIR%/%VENDOR%/*.pkg</string>
+            </dict>
+            <key>Processor</key>
+            <string>FileFinder</string>
+         </dict>
+         <dict>
             <key>Processor</key>
             <string>PkgCopier</string>
             <key>Arguments</key>
             <dict>
                <key>source_pkg</key>
-               <string>%pathname%</string>
+               <string>%found_filename%</string>
                <key>pkg_path</key>
                <string>%RECIPE_CACHE_DIR%/Scripts/GlobalProtect.pkg</string>
             </dict>
