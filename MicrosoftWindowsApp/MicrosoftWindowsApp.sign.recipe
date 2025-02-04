@@ -5,7 +5,7 @@
       <key>Description</key>
       <string>Signs a provided installer package using a signing certificate identifier.</string>
       <key>Identifier</key>
-      <string>corp.sap.maccoe.sign.WindowsApp</string>
+      <string>corp.sap.maccoe.sign.MicrosoftWindowsApp</string>
       <key>Input</key>
       <dict>
          <key>SIGNINGCERTIFICATE</key>
