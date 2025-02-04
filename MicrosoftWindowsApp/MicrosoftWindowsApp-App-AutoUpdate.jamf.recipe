@@ -24,6 +24,8 @@
          <string>PolicyTemplate-autoupdate.xml</string>
          <key>POLICY_TRIGGER</key>
          <string>autoupdate-%PROD_NAME%</string>
+         <key>PRODUCTID</key>
+         <string>868963</string>
          <key>SLEEP_IN_SECONDS</key>
          <string>0</string>
          <key>STOPPROCESSINGIF_PREDICATE1</key>
@@ -34,7 +36,7 @@
       <key>MinimumVersion</key>
       <string>2.0.0</string>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.sign.WindowsApp</string>
+      <string>corp.sap.maccoe.sign.MicrosoftWindowsApp</string>
       <key>Process</key>
       <array>
          <dict>
