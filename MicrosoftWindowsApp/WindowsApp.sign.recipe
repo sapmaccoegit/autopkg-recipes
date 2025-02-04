@@ -12,7 +12,7 @@
          <string>Put_Signing_Certificate_into_AutoPkg_recipe_override</string>
       </dict>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.pkg.WindowsApp</string>
+      <string>com.github.rtrouton.pkg.microsoftwindowsapp</string>
       <key>Process</key>
       <array>
          <dict>
