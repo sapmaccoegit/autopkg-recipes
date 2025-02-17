@@ -1,0 +1,50 @@
+Description: Uses parent recipe to download the latest Homebrew installer package and import it into the Jamf Pro server.
+Identifier: corp.sap.maccoe.jamf.Homebrew-App-AutoUpdate
+Input:
+  NAME: Homebrew
+  CATEGORY: Apps
+  PKG_CATEGORY: "%CATEGORY%"
+  PROD_NAME: Homebrew
+  POLICY_NAME: "macOS-I544957-202502: Auto Update %PROD_NAME%"
+  POLICY_CATEGORY: Apps-AutoUpdate
+  POLICY_TEMPLATE: PolicyTemplate-autoupdate.xml
+  POLICY_TRIGGER: "autoupdate-%PROD_NAME%"
+  SLEEP_IN_SECONDS: 0
+  STOPPROCESSINGIF_PREDICATE1: "download_changed == FALSE"
+  STOPPROCESSINGIF_PREDICATE2: "pkg_uploaded == FALSE"
+
+MinimumVersion: '2.3'
+ParentRecipe: com.github.nstrauss.download.Homebrew
+
+Process:
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: "%STOPPROCESSINGIF_PREDICATE1%"
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
+    Arguments:
+      category_name: "%CATEGORY%"
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%PKG_CATEGORY%"
+      pkg_notes: "%NAME% %version% installer uploaded via AutoPkg."
+
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: "%STOPPROCESSINGIF_PREDICATE2%"
+
+  - Processor: corp.sap.autopkg.SharedProcessors/Sleep
+    Arguments:
+      predicate: "%SLEEP_IN_SECONDS%"
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
+    Arguments:
+      category_name: "%POLICY_CATEGORY%"
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+    Comment: Auto Update policy
+    Arguments:
+      policy_template: "%POLICY_TEMPLATE%"
+      policy_name: "%POLICY_NAME%"
+      replace_policy: "True"
