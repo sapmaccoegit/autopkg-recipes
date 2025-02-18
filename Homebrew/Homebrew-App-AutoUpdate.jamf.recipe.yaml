@@ -9,7 +9,7 @@ Input:
   POLICY_CATEGORY: Apps-AutoUpdate
   POLICY_TEMPLATE: PolicyTemplate-autoupdate.xml
   POLICY_TRIGGER: "autoupdate-%PROD_NAME%"
-  SLEEP_IN_SECONDS: 0
+  SLEEP_IN_SECONDS: "0" # Processor currently expects a string, not an integer.
   STOPPROCESSINGIF_PREDICATE1: "download_changed == FALSE"
   STOPPROCESSINGIF_PREDICATE2: "pkg_uploaded == FALSE"
 
