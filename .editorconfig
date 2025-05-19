@@ -1,0 +1,30 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+[*]
+# Unix-style newlines with a newline ending every file
+end_of_line = lf
+insert_final_newline = true
+
+# Indentation style and column width
+indent_style = space
+indent_size = 4
+
+# Trim end of lines
+trim_trailing_whitespace = true
+
+# Character set
+charset = utf-8
+
+# Matches multiple files with brace expansion notation
+[*.{yml,yaml,json}]
+indent_size = 2
+
+[*.{plist,mobileconfig}]
+indent_style = tab
+indent_size = tab
+
+[*.{diff,md}]
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
