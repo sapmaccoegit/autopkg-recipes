@@ -6,7 +6,7 @@
     <trigger>USER_INITIATED</trigger>
     <frequency>Ongoing</frequency>
     <category>
-      <name>Apps</name>
+      <name>%CATEGORY%</name>
     </category>
     <date_time_limitations/>
     <network_limitations/>
