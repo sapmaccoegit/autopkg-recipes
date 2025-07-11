@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policy>
+  <general>
+    <name>%POLICY_NAME_VPP_APP_REPLACEMENT_INSTALL_CACHED%</name>
+    <enabled>true</enabled>
+    <trigger>EVENT</trigger>
+    <trigger_checkin>false</trigger_checkin>
+    <trigger_enrollment_complete>false</trigger_enrollment_complete>
+    <trigger_login>false</trigger_login>
+    <trigger_network_state_changed>false</trigger_network_state_changed>
+    <trigger_startup>false</trigger_startup>
+    <trigger_other>%TRIGGER_O3_VPP_APP_REPLACEMENT%</trigger_other>
+    <frequency>Ongoing</frequency>
+    <category>
+      <name>Push Deployments</name>
+    </category>
+    <date_time_limitations/>
+    <network_limitations/>
+    <override_default_settings/>
+    <network_requirements/>
+    <site/>
+  </general>
+  <scope>
+    <all_computers>false</all_computers>
+    <computers/>
+    <computer_groups>
+      <computer_group>
+        <name>%GROUP_NAME_VPP_APP_REPLACEMENT%</name>
+      </computer_group>
+    </computer_groups>
+    <limitations/>
+    <exclusions>
+      <computers/>
+      <computer_groups>
+        <computer_group>
+          <name>%GROUP_NAME_NONCOMPLIANT%</name>
+        </computer_group>
+        <computer_group>
+          <name>%GROUP_NAME_VPP_APP_REPLACEMENT_INSTALL_NOT_CACHED%</name>
+        </computer_group>
+      </computer_groups>
+    </exclusions>
+  </scope>
+  <self_service>
+    <use_for_self_service>false</use_for_self_service>
+  </self_service>
+  <package_configuration>
+    <packages>
+      <size>1</size>
+      <package>
+        <name>%pkg_name%</name>
+        <action>Install Cached</action>
+        <fut/>
+        <feu/>
+      </package>
+    </packages>
+    <distribution_point/>
+  </package_configuration>
+  <scripts/>
+  <printers/>
+  <dock_items/>
+  <account_maintenance/>
+  <reboot/>
+  <maintenance>
+    <recon>true</recon>
+  </maintenance>
+  <files_processes/>
+  <user_interaction>
+    <message_finish>%NAME% (App Store version) has been removed from your Mac and replaced with the non-App Store version.</message_finish>
+  </user_interaction>
+  <disk_encryption/>
+</policy>
