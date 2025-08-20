@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<computer_group>
+  <name>%GROUP_NAME_APP_CURRENT%</name>
+  <is_smart>true</is_smart>
+  <site/>
+  <criteria>
+    <size>2</size>
+    <criterion>
+      <name>Application Title</name>
+      <priority>0</priority>
+      <and_or>and</and_or>
+      <search_type>is</search_type>
+      <value>%APP_INVENTORY_NAME%</value>
+      <opening_paren>false</opening_paren>
+      <closing_paren>false</closing_paren>
+    </criterion>
+    <criterion>
+      <name>Application Version</name>
+      <priority>1</priority>
+      <and_or>and</and_or>
+      <search_type>like</search_type>
+      <value>%APP_INVENTORY_VERSION%</value>
+      <opening_paren>false</opening_paren>
+      <closing_paren>false</closing_paren>
+    </criterion>
+  </criteria>
+</computer_group>
