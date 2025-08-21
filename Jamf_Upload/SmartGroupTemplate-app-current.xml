@@ -11,7 +11,7 @@
       <and_or>and</and_or>
       <search_type>is</search_type>
       <value>%APP_INVENTORY_PRIMARY_CRITERION_VALUE%</value>
-      <opening_paren>false</opening_paren>
+      <opening_paren>true</opening_paren>
       <closing_paren>false</closing_paren>
     </criterion>
     <criterion>
@@ -21,7 +21,7 @@
       <search_type>like</search_type>
       <value>%APP_INVENTORY_VERSION%</value>
       <opening_paren>false</opening_paren>
-      <closing_paren>false</closing_paren>
+      <closing_paren>true</closing_paren>
     </criterion>
   </criteria>
 </computer_group>
