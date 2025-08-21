@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <computer_group>
-  <name>%GROUP_NAME_APP_OUTDATED%</name>
+  <name>%GROUP_NAME_APP_CURRENT%</name>
   <is_smart>true</is_smart>
   <site/>
   <criteria>
@@ -18,7 +18,7 @@
       <name>Application Version</name>
       <priority>1</priority>
       <and_or>and</and_or>
-      <search_type>not like</search_type>
+      <search_type>like</search_type>
       <value>%APP_INVENTORY_VERSION%</value>
       <opening_paren>false</opening_paren>
       <closing_paren>false</closing_paren>
