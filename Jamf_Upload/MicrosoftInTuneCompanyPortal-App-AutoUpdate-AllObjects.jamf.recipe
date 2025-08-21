@@ -5,11 +5,11 @@
       <key>Description</key>
       <string>Uses parent pkg recipe to download the latest Microsoft InTune Company Portal installer package and import it into the Jamf Pro server.</string>
       <key>Identifier</key>
-      <string>corp.sap.maccoe.jamf.MicrosoftInTuneCompanyPortal-App-AutoUpdate</string>
+      <string>corp.sap.maccoe.jamf.MicrosoftInTuneCompanyPortal-App-AutoUpdate-AllObjects</string>
       <key>Input</key>
       <dict>
          <key>NAME</key>
-         <string>Microsoft InTune Company Portal</string>
+         <string>Microsoft Company Portal</string>
          <key>CATEGORY</key>
          <string>Apps</string>
          <key>PKG_CATEGORY</key>
@@ -30,6 +30,20 @@
          <string>download_changed == FALSE</string>
          <key>STOPPROCESSINGIF_PREDICATE2</key>
          <string>pkg_uploaded == FALSE</string>
+         <key>APP_INVENTORY_NAME</key>
+         <string>%NAME%.app</string>
+         <key>APP_BUNDLE_ID</key>
+         <string>com.microsoft.CompanyPortalMac</string>
+         <key>APP_BUNDLE_ID_REGEX</key>
+         <string>com\.microsoft\.CompanyPortalMac</string>
+         <key>GROUP_NAME_APP_OUTDATED</key>
+         <string></string>
+         <key>GROUP_TEMPLATE_APP_OUTDATED</key>
+         <string>SmartGroupTemplate-app-outdated.xml</string>
+         <key>GROUP_NAME_APP_CURRENT</key>
+         <string></string>
+         <key>GROUP_TEMPLATE_APP_CURRENT</key>
+         <string>SmartGroupTemplate-app-current.xml</string>
       </dict>
       <key>MinimumVersion</key>
       <string>2.0.0</string>
@@ -92,6 +106,36 @@
             </dict>
             <key>Processor</key>
             <string>com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader</string>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>computergroup_name</key>
+               <string>%GROUP_NAME_APP_OUTDATED%</string>
+               <key>computergroup_template</key>
+               <string>%GROUP_TEMPLATE_APP_OUTDATED%</string>
+               <key>replace_group</key>
+               <string>True</string>
+               <key>APP_INVENTORY_VERSION</key>
+               <string>%version%</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>computergroup_name</key>
+               <string>%GROUP_NAME_APP_CURRENT%</string>
+               <key>computergroup_template</key>
+               <string>%GROUP_TEMPLATE_APP_CURRENT%</string>
+               <key>replace_group</key>
+               <string>True</string>
+               <key>APP_INVENTORY_VERSION</key>
+               <string>%version%</string>
+            </dict>
          </dict>
          <dict>
             <key>Processor</key>
