@@ -30,8 +30,10 @@
          <string>download_changed == FALSE</string>
          <key>STOPPROCESSINGIF_PREDICATE2</key>
          <string>pkg_uploaded == FALSE</string>
-         <key>APP_INVENTORY_NAME</key>
-         <string>%NAME%.app</string>
+         <key>APP_INVENTORY_PRIMARY_CRITERION_NAME</key>
+         <string>Application Bundle ID</string>
+         <key>APP_INVENTORY_PRIMARY_CRITERION_VALUE</key>
+         <string>%APP_BUNDLE_ID%</string>
          <key>APP_BUNDLE_ID</key>
          <string>com.microsoft.CompanyPortalMac</string>
          <key>APP_BUNDLE_ID_REGEX</key>
