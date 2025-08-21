@@ -109,6 +109,36 @@
          </dict>
          <dict>
             <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>computergroup_name</key>
+               <string>%GROUP_NAME_APP_OUTDATED%</string>
+               <key>computergroup_template</key>
+               <string>%GROUP_TEMPLATE_APP_OUTDATED%</string>
+               <key>replace_group</key>
+               <string>True</string>
+               <key>APP_INVENTORY_VERSION</key>
+               <string>%version%</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
+            <key>Arguments</key>
+            <dict>
+               <key>computergroup_name</key>
+               <string>%GROUP_NAME_APP_CURRENT%</string>
+               <key>computergroup_template</key>
+               <string>%GROUP_TEMPLATE_APP_CURRENT%</string>
+               <key>replace_group</key>
+               <string>True</string>
+               <key>APP_INVENTORY_VERSION</key>
+               <string>%version%</string>
+            </dict>
+         </dict>
+         <dict>
+            <key>Processor</key>
             <string>com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader</string>
             <key>Arguments</key>
             <dict>
