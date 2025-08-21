@@ -30,6 +30,20 @@
          <string>download_changed == FALSE</string>
          <key>STOPPROCESSINGIF_PREDICATE2</key>
          <string>pkg_uploaded == FALSE</string>
+         <key>APP_INVENTORY_NAME</key>
+         <string>%NAME%.app</string>
+         <key>APP_BUNDLE_ID</key>
+         <string>com.microsoft.CompanyPortalMac</string>
+         <key>APP_BUNDLE_ID_REGEX</key>
+         <string>com\.microsoft\.CompanyPortalMac</string>
+         <key>GROUP_NAME_APP_OUTDATED</key>
+         <string></string>
+         <key>GROUP_TEMPLATE_APP_OUTDATED</key>
+         <string>SmartGroupTemplate-app-outdated.xml</string>
+         <key>GROUP_NAME_APP_CURRENT</key>
+         <string></string>
+         <key>GROUP_TEMPLATE_APP_CURRENT</key>
+         <string>SmartGroupTemplate-app-current.xml</string>
       </dict>
       <key>MinimumVersion</key>
       <string>2.0.0</string>
