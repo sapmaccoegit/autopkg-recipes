@@ -9,7 +9,7 @@
       <key>Input</key>
       <dict>
          <key>NAME</key>
-         <string>Poly Lens</string>
+         <string>Poly Desktop</string>
          <key>CATEGORY</key>
          <string>Apps</string>
          <key>PKG_CATEGORY</key>
@@ -34,7 +34,7 @@
       <key>MinimumVersion</key>
       <string>2.0.0</string>
       <key>ParentRecipe</key>
-      <string>corp.sap.maccoe.sign.polylens</string>
+      <string>com.github.rtrouton.pkg.polylens</string>
       <key>Process</key>
       <array>
          <dict>
